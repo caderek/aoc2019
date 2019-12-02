@@ -4,7 +4,7 @@
 
 `npm i` or `yarn`
 
-## Running
+## Running dev mode
 
 `npm start day<N>` or `yarn start day<N>`
 

@@ -1,15 +1,14 @@
-const { execSync } = require("child_process")
+const { spawn, execSync } = require("child_process")
 const { readdirSync } = require("fs")
 
 const day = process.argv[2]
 const days = readdirSync("./src")
 
 if (!days.includes(day)) {
-  console.log(`No solution for ${day}`)
-  process.exit(1)
+  console.log(`Creating file structure for ${day}...`)
+  execSync(`cp -r src/template src/${day}`)
 }
 
-const output = execSync(`ts-node src/${day}/index.ts`).toString()
-
-console.log(`Solutions for ${day}:`)
-console.log(output)
+spawn("nodemon", ["-x", "ts-node", `src/${day}/index.ts`], {
+  stdio: "inherit",
+})

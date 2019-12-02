@@ -11,8 +11,8 @@ const goB = (input) => {
   return
 }
 
-u.test(goA(1), 1)
+// u.test(goA(), )
 console.log("A:", goA(input))
 
-u.test(goB(1), 1)
+// u.test(goB(), )
 console.log("B:", goB(input))
