@@ -4,15 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node ./scripts/start.js",
-    "test": "jest"
+    "start": "node ./scripts/start.js"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.23",
     "@types/node": "^12.12.14",
     "core-js": "^3.4.5",
-    "jest": "^24.9.0",
-    "ts-jest": "^24.2.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.2"
   },
