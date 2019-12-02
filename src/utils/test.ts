@@ -3,14 +3,18 @@ import * as kleur from "kleur"
 
 let index = 0
 
-export const test = (a: any, b: any) => {
-  const passed = isDeepStrictEqual(a, b)
+export const test = <T>(result: T, expected: T) => {
+  const passed = isDeepStrictEqual(result, expected)
 
   if (passed) {
     console.log(kleur.green(`${index}: passed`))
   } else {
     console.log(kleur.gray("-----------------------------------------"))
-    console.log(kleur.red(`${index}: failed:\n\nResult: ${a}\nExpected: ${b}`))
+    console.log(
+      kleur.red(
+        `${index}: failed:\n\nResult: ${result}\nExpected: ${expected}`,
+      ),
+    )
     console.log(kleur.gray("-----------------------------------------"))
   }
 
