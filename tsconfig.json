@@ -1,12 +1,9 @@
 {
   "compilerOptions": {
     "target": "es2019",
-    "module": "commonjs",
-    "removeComments": false,
-    "declaration": true,
-    "outDir": "./lib",
-    "preserveConstEnums": true,
-    "strict": false
+    "allowJs": true,
+    "strict": false,
+    "lib": ["dom", "es2019"]
   },
   "include": ["src", "examples/passThrough.ts"],
   "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.temp.ts"]

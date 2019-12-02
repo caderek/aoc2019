@@ -13,7 +13,7 @@ const goB = (input) => {
 
 /* Tests */
 
-// test()
+// test(result, expected)
 
 /* Results */
 
