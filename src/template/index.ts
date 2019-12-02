@@ -1,6 +1,6 @@
-import u from "../utils"
+import u, { test, readInput } from "../utils"
 
-const rawInput = u.readInput()
+const rawInput = readInput()
 const input = rawInput
 
 const goA = (input) => {
@@ -11,8 +11,12 @@ const goB = (input) => {
   return
 }
 
-// u.test(goA(), )
-console.log("A:", goA(input))
+/* Tests */
 
-// u.test(goB(), )
-console.log("B:", goB(input))
+// test()
+
+/* Results */
+
+console.log("Solution to part 1:", goA(input))
+
+console.log("Solution to part 2:", goB(input))
