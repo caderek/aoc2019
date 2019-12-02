@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node ./scripts/start.js",
+    "dev": "node ./scripts/dev.js",
     "test": "jest"
   },
   "devDependencies": {
@@ -15,5 +16,9 @@
     "ts-jest": "^24.2.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.2"
+  },
+  "dependencies": {
+    "get-caller-file": "^2.0.5",
+    "kleur": "^3.0.3"
   }
 }
