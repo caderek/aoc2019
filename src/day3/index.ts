@@ -47,9 +47,10 @@ const findIntersections = (paths: Paths) => {
   const intersections = []
 
   for (const x of a) {
-    const y = bCords.get(x[0])
-    if (y !== undefined) {
-      intersections.push([x[0], x[1], y])
+    const ySteps = bCords.get(x[0])
+
+    if (ySteps !== undefined) {
+      intersections.push([x[0], x[1], ySteps])
     }
   }
 
