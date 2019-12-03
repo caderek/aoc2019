@@ -37,13 +37,13 @@ If the day folder does not exist, it will be created from template.
 ## Running all solutions
 
 ```
-npm start all
+npm start
 ```
 
 or
 
 ```
-yarn start all
+yarn start
 ```
 
 ## Languages used:
