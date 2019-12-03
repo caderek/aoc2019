@@ -8,8 +8,6 @@ type Paths = [XYSteps[], XYSteps[]]
 type XYStepsAStepsB = [number, number, number, number]
 type Intersections = XYStepsAStepsB[]
 
-const rawInput = readInput()
-
 const prepareInput = (rawInput: string) =>
   rawInput.split("\n").map((x) =>
     x.split(",").map((item) => ({
@@ -18,7 +16,7 @@ const prepareInput = (rawInput: string) =>
     })),
   )
 
-const input = prepareInput(rawInput)
+const input = prepareInput(readInput())
 
 const getPaths = (input: Wires) => {
   return input.map((wire) => {
