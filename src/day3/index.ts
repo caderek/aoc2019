@@ -19,7 +19,7 @@ const findIntersections = (paths) => {
   const intersections = []
 
   for (const x of a) {
-    const y = b.find((y, i) => x[0] === y[0] && x[1] === y[1])
+    const y = b.find((y) => x[0] === y[0] && x[1] === y[1])
     if (y !== undefined) {
       intersections.push([x[0], x[1], x[2], y[2]])
     }
