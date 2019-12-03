@@ -34,6 +34,18 @@ yarn start day1
 
 If the day folder does not exist, it will be created from template.
 
+## Running all solutions
+
+```
+npm start all
+```
+
+or
+
+```
+yarn start all
+```
+
 ## Languages used:
 
 - TypeScript
