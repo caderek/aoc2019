@@ -5,7 +5,7 @@ type Wire = { dir: "R" | "L" | "U" | "D"; dis: number }[]
 type Wires = [Wire, Wire]
 type XYSteps = [number, number, number]
 type Paths = [XYSteps[], XYSteps[]]
-type XYStepsAStepsB = [number, number, number, number]
+type XYStepsAStepsB = [string, number, number]
 type Intersections = XYStepsAStepsB[]
 
 const prepareInput = (rawInput: string) =>
@@ -28,8 +28,9 @@ const getPaths = (input: Wires) => {
     for (const { dir, dis } of wire) {
       path = path.concat(
         Array.from({ length: dis }, () => [
-          dir === "R" ? ++x : dir === "L" ? --x : x,
-          dir === "U" ? ++y : dir === "D" ? --y : y,
+          `${dir === "R" ? ++x : dir === "L" ? --x : x},${
+            dir === "U" ? ++y : dir === "D" ? --y : y
+          }`,
           ++steps,
         ]),
       )
@@ -42,12 +43,13 @@ const getPaths = (input: Wires) => {
 const findIntersections = (paths: Paths) => {
   const [a, b] = paths
 
+  const bCords = new Map(b.map((x) => [x[0], x[1]]))
   const intersections = []
 
   for (const x of a) {
-    const y = b.find((y) => x[0] === y[0] && x[1] === y[1])
+    const y = bCords.get(x[0])
     if (y !== undefined) {
-      intersections.push([x[0], x[1], x[2], y[2]])
+      intersections.push([x[0], x[1], y])
     }
   }
 
@@ -57,7 +59,8 @@ const findIntersections = (paths: Paths) => {
 const findNearestCross = (intersections: Intersections) => {
   return Math.min(
     ...intersections.map((item) => {
-      return Math.abs(item[0]) + Math.abs(item[1])
+      const [x, y] = item[0].split(",").map(Number)
+      return Math.abs(x) + Math.abs(y)
     }),
   )
 }
@@ -67,7 +70,7 @@ const goA = (intersections: Intersections) => {
 }
 
 const goB = (intersections: Intersections) => {
-  return Math.min(...intersections.map((x) => x[2] + x[3]))
+  return Math.min(...intersections.map((x) => x[1] + x[2]))
 }
 
 /* Tests */
