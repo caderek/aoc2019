@@ -41,12 +41,10 @@ test(
 
 /* Results */
 
-console.log(
-  "Solution to part 1:",
-  calculateTotalFuelMass(input, calculateFuelMass),
-)
+console.time("Time")
+const resultA = calculateTotalFuelMass(input, calculateFuelMass)
+const resultB = calculateTotalFuelMass(input, calculateCorrectFuelMass)
+console.timeEnd("Time")
 
-console.log(
-  "Solution to part 2:",
-  calculateTotalFuelMass(input, calculateCorrectFuelMass),
-)
+console.log("Solution to part 1:", resultA)
+console.log("Solution to part 2:", resultB)

@@ -42,6 +42,10 @@ test(brute(rawInput, 5290681), 1202)
 
 /* Results */
 
-console.log("Solution to part 1:", go(rawInput, 12, 2)[0])
+console.time("Time")
+const resultA = go(rawInput, 12, 2)[0]
+const resultB = brute(rawInput, 19690720)
+console.timeEnd("Time")
 
-console.log("Solution to part 2:", brute(rawInput, 19690720))
+console.log("Solution to part 1:", resultA)
+console.log("Solution to part 2:", resultB)

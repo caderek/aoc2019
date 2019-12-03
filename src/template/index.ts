@@ -1,4 +1,4 @@
-import { test, readInput } from "../utils"
+import { test, readInput } from "../utils/index"
 
 const rawInput = readInput()
 const prepareInput = (rawInput) => rawInput
@@ -18,6 +18,10 @@ const goB = (input) => {
 
 /* Results */
 
-console.log("Solution to part 1:", goA(input))
+console.time("Time")
+const resultA = goA(input)
+const resultB = goB(input)
+console.timeEnd("Time")
 
-console.log("Solution to part 2:", goB(input))
+console.log("Solution to part 1:", resultA)
+console.log("Solution to part 2:", resultB)
