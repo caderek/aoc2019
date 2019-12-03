@@ -1,7 +1,8 @@
 import { test, readInput } from "../utils"
 
 const rawInput = readInput()
-const input = rawInput
+const prepareInput = (rawInput) => rawInput
+const input = prepareInput(rawInput)
 
 const goA = (input) => {
   return
