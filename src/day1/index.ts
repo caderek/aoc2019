@@ -46,5 +46,5 @@ const resultA = calculateTotalFuelMass(input, calculateFuelMass)
 const resultB = calculateTotalFuelMass(input, calculateCorrectFuelMass)
 console.timeEnd("Time")
 
-console.log("Solution to part 1:", resultA)
-console.log("Solution to part 2:", resultB)
+console.log("Solution to part 1:", resultA) // -> 3515171
+console.log("Solution to part 2:", resultB) // -> 5269882

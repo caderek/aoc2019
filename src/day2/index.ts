@@ -47,5 +47,5 @@ const resultA = go(rawInput, 12, 2)[0]
 const resultB = brute(rawInput, 19690720)
 console.timeEnd("Time")
 
-console.log("Solution to part 1:", resultA)
-console.log("Solution to part 2:", resultB)
+console.log("Solution to part 1:", resultA) // -> 5290681
+console.log("Solution to part 2:", resultB) // -> 5741
