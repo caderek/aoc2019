@@ -1,38 +1,12 @@
-# Advent of Code 2019 solutions
+# Advent of Code 2019 solutions (TypeScript)
 
 ## Installation
 
-Using NPM:
+Required: Node 12 or higher ([download](https://nodejs.org/en/download/))
 
 ```
 npm i
 ```
-
-Using Yarn:
-
-```
-yarn
-```
-
-## Running dev mode
-
-```
-npm start day<N>
-```
-
-or
-
-```
-yarn start day<N>
-```
-
-Example:
-
-```
-yarn start day1
-```
-
-If the day folder does not exist, it will be created from template.
 
 ## Running all solutions
 
@@ -40,13 +14,20 @@ If the day folder does not exist, it will be created from template.
 npm start
 ```
 
-or
+## Running specific day in dev mode
 
 ```
-yarn start
+npm start day<N>
 ```
 
-## Languages used:
+Example:
 
-- TypeScript
-- JavaScript
+```
+npm start day1
+```
+
+If the day folder does not exist, it will be created from template.
+
+## Template
+
+The repo uses this template: [aoc-starter-ts](https://github.com/caderek/aoc-starter-ts)
