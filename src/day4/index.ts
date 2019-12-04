@@ -5,17 +5,15 @@ const input = range_(359282, 820401).map(String)
 
 const isAscending = (str: string) => str.match(/^0*1*2*3*4*5*6*7*8*9*$/)
 
-const hasPair = (str: string, prev = "", n = 0) =>
-  (str[0] !== prev && n === 2) ||
-  (str[0] === undefined
-    ? false
-    : hasPair(str.slice(1), str[0], str[0] === prev ? ++n : 1))
-
 const goA = (input: string[]) =>
   input.filter((pass) => pass.match(/(.)\1/) && isAscending(pass)).length
 
 const goB = (input: string[]) =>
-  input.filter((pass) => hasPair(pass) && isAscending(pass)).length
+  input.filter(
+    (pass) =>
+      (pass.match(/(.)\1+/g) || []).some((x) => x.length === 2) &&
+      isAscending(pass),
+  ).length
 
 /* Tests */
 
