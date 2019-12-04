@@ -1,7 +1,7 @@
 import { test } from "../utils/index"
 import { range_ } from "@arrows/array"
 
-const input = range_(359282, 820401 + 1).map(String)
+const input = range_(359282, 820401).map(String)
 
 const isAscending = (str: string) => str.match(/^0*1*2*3*4*5*6*7*8*9*$/)
 
