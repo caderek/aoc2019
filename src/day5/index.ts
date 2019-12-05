@@ -22,26 +22,26 @@ const modes = {
 }
 
 const getValue = (
-  prog: number[],
+  program: number[],
   params: number[],
   pointer: number,
   index: number,
 ) => {
-  return prog[
+  return program[
     params[index] === modes.POSITION
-      ? prog[pointer + index + 1]
+      ? program[pointer + index + 1]
       : pointer + index + 1
   ]
 }
 
 const compute = (input: string, inputs: number[]) => {
-  const prog = input.split(",").map(Number)
+  const program = input.split(",").map(Number)
 
   const outputs = []
   let pointer = 0
 
   while (true) {
-    const first = String(prog[pointer]).padStart(5, "0")
+    const first = String(program[pointer]).padStart(5, "0")
 
     const params = first
       .substr(0, 3)
@@ -57,21 +57,21 @@ const compute = (input: string, inputs: number[]) => {
       break
     }
 
-    const a = getValue(prog, params, pointer, 0)
-    const b = getValue(prog, params, pointer, 1)
+    const a = getValue(program, params, pointer, 0)
+    const b = getValue(program, params, pointer, 1)
 
     switch (opcode) {
       case ops.ADD: {
-        prog[prog[pointer + 3]] = a + b
+        program[program[pointer + 3]] = a + b
         break
       }
       case ops.MULTIPLY: {
-        prog[prog[pointer + 3]] = a * b
+        program[program[pointer + 3]] = a * b
         break
       }
       case ops.INPUT: {
         const input = inputs.shift()
-        prog[prog[pointer + 1]] = input
+        program[program[pointer + 1]] = input
         break
       }
       case ops.OUTPUT: {
@@ -89,11 +89,11 @@ const compute = (input: string, inputs: number[]) => {
         break
       }
       case ops.LESS_THAN: {
-        prog[prog[pointer + 3]] = a < b ? 1 : 0
+        program[program[pointer + 3]] = a < b ? 1 : 0
         break
       }
       case ops.EQUALS: {
-        prog[prog[pointer + 3]] = a === b ? 1 : 0
+        program[program[pointer + 3]] = a === b ? 1 : 0
         break
       }
     }
