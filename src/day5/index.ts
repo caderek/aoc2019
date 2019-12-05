@@ -5,20 +5,20 @@ const input = readInput()
 
 const jumps = { 1: 4, 2: 4, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4 }
 
-const ops = {
-  ADD: 1,
-  MULTIPLY: 2,
-  INPUT: 3,
-  OUTPUT: 4,
-  JUMP_IF_TRUE: 5,
-  JUMP_IF_FALSE: 6,
-  LESS_THAN: 7,
-  EQUALS: 8,
+enum Ops {
+  ADD = 1,
+  MULTIPLY,
+  INPUT,
+  OUTPUT,
+  JUMP_IF_TRUE,
+  JUMP_IF_FALSE,
+  LESS_THAN,
+  EQUALS,
 }
 
-const modes = {
-  POSITION: 0,
-  IMMEDIATE: 1,
+enum Modes {
+  POSITION,
+  IMMEDIATE,
 }
 
 const getValue = (
@@ -28,7 +28,7 @@ const getValue = (
   index: number,
 ) => {
   return program[
-    params[index] === modes.POSITION
+    params[index] === Modes.POSITION
       ? program[pointer + index + 1]
       : pointer + index + 1
   ]
@@ -43,56 +43,56 @@ const compute = (input: string, inputs: number[]) => {
   while (true) {
     const first = String(program[pointer]).padStart(5, "0")
 
+    const opcode = Number(first.substr(3))
+
+    if (opcode === 99) {
+      break
+    }
+
     const params = first
       .substr(0, 3)
       .split("")
       .reverse()
       .map(Number)
 
-    const opcode = Number(first.substr(3))
-
     let shouldJump = true
-
-    if (opcode === 99) {
-      break
-    }
 
     const a = getValue(program, params, pointer, 0)
     const b = getValue(program, params, pointer, 1)
 
     switch (opcode) {
-      case ops.ADD: {
+      case Ops.ADD: {
         program[program[pointer + 3]] = a + b
         break
       }
-      case ops.MULTIPLY: {
+      case Ops.MULTIPLY: {
         program[program[pointer + 3]] = a * b
         break
       }
-      case ops.INPUT: {
+      case Ops.INPUT: {
         const input = inputs.shift()
         program[program[pointer + 1]] = input
         break
       }
-      case ops.OUTPUT: {
+      case Ops.OUTPUT: {
         outputs.push(a)
         break
       }
-      case ops.JUMP_IF_TRUE: {
+      case Ops.JUMP_IF_TRUE: {
         pointer = a !== 0 ? b : pointer
         shouldJump = a === 0
         break
       }
-      case ops.JUMP_IF_FALSE: {
+      case Ops.JUMP_IF_FALSE: {
         pointer = a === 0 ? b : pointer
         shouldJump = a !== 0
         break
       }
-      case ops.LESS_THAN: {
+      case Ops.LESS_THAN: {
         program[program[pointer + 3]] = a < b ? 1 : 0
         break
       }
-      case ops.EQUALS: {
+      case Ops.EQUALS: {
         program[program[pointer + 3]] = a === b ? 1 : 0
         break
       }
