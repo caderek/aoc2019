@@ -79,8 +79,7 @@ const compute = (input: string, inputs: number[]) => {
         break
       }
       case Ops.INPUT: {
-        const input = inputs.shift()
-        program[program[pointer + 1]] = input
+        program[program[pointer + 1]] = inputs.shift()
         break
       }
       case Ops.OUTPUT: {
