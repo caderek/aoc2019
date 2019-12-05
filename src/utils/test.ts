@@ -10,6 +10,10 @@ type Test = {
 }
 
 export const test: Test = curry((result, expected) => {
+  if (process.env.silent === "true") {
+    return
+  }
+
   const passed = isDeepStrictEqual(result, expected)
 
   if (passed) {

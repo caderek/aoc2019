@@ -14,12 +14,13 @@ if (!days.includes(day) && day) {
 
 if (!day) {
   days.forEach((day) => {
-    console.log("------------")
     console.log(day)
-    console.log("------------")
+    console.log("------------------------------")
     spawnSync("ts-node", [`src/${day}/index.ts`], {
       stdio: "inherit",
+      env: { ...process.env, silent: "true" },
     })
+    console.log("")
   })
 } else {
   spawn("nodemon", ["-x", "ts-node", `src/${day}/index.ts`], {
