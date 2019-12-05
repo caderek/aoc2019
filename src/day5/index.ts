@@ -57,60 +57,42 @@ const compute = (input: string, inputs: number[]) => {
       break
     }
 
+    const a = getValue(prog, params, pointer, 0)
+    const b = getValue(prog, params, pointer, 1)
+
     switch (opcode) {
       case ops.ADD: {
-        const a = getValue(prog, params, pointer, 0)
-        const b = getValue(prog, params, pointer, 1)
-
         prog[prog[pointer + 3]] = a + b
         break
       }
       case ops.MULTIPLY: {
-        const a = getValue(prog, params, pointer, 0)
-        const b = getValue(prog, params, pointer, 1)
-
         prog[prog[pointer + 3]] = a * b
         break
       }
       case ops.INPUT: {
         const input = inputs.shift()
-
         prog[prog[pointer + 1]] = input
         break
       }
       case ops.OUTPUT: {
-        const output = getValue(prog, params, pointer, 0)
-
-        outputs.push(output)
+        outputs.push(a)
         break
       }
       case ops.JUMP_IF_TRUE: {
-        const a = getValue(prog, params, pointer, 0)
-        const b = getValue(prog, params, pointer, 1)
-
         pointer = a !== 0 ? b : pointer
         shouldJump = a === 0
         break
       }
       case ops.JUMP_IF_FALSE: {
-        const a = getValue(prog, params, pointer, 0)
-        const b = getValue(prog, params, pointer, 1)
-
         pointer = a === 0 ? b : pointer
         shouldJump = a !== 0
         break
       }
       case ops.LESS_THAN: {
-        const a = getValue(prog, params, pointer, 0)
-        const b = getValue(prog, params, pointer, 1)
-
         prog[prog[pointer + 3]] = a < b ? 1 : 0
         break
       }
       case ops.EQUALS: {
-        const a = getValue(prog, params, pointer, 0)
-        const b = getValue(prog, params, pointer, 1)
-
         prog[prog[pointer + 3]] = a === b ? 1 : 0
         break
       }
