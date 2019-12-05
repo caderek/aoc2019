@@ -43,8 +43,8 @@ const getValue = (
   ]
 }
 
-const compute = (input: string, inputs: number[]) => {
-  const program = input.split(",").map(Number)
+const compute = (source: string, inputs: number[]) => {
+  const program = source.split(",").map(Number)
 
   const outputs = []
   let pointer = 0
