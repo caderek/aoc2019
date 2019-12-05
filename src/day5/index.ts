@@ -3,7 +3,16 @@ import { last_, butLast_ } from "@arrows/array"
 
 const input = readInput()
 
-const jumps = { 1: 4, 2: 4, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4 }
+enum Jumps {
+  ADD = 4,
+  MULTIPLY = 4,
+  INPUT = 2,
+  OUTPUT = 2,
+  JUMP_IF_TRUE = 3,
+  JUMP_IF_FALSE = 3,
+  LESS_THAN = 4,
+  EQUALS = 4,
+}
 
 enum Ops {
   ADD = 1,
@@ -99,7 +108,7 @@ const compute = (input: string, inputs: number[]) => {
     }
 
     if (shouldJump) {
-      pointer += jumps[opcode]
+      pointer += Jumps[Ops[opcode]]
     }
   }
 
