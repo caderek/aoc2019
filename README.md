@@ -1,5 +1,15 @@
 # Advent of Code 2019 solutions (TypeScript)
 
+## Join my leaderboard
+
+You can [join](https://adventofcode.com/2019/leaderboard/private) my private leaderboard fo JS/TS programmers:
+
+Code:
+
+```
+107172-b51ab08f
+```
+
 ## Installation
 
 Required: Node 12 or higher ([download](https://nodejs.org/en/download/))
