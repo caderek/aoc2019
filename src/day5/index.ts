@@ -23,6 +23,7 @@ enum Ops {
   JUMP_IF_FALSE,
   LESS_THAN,
   EQUALS,
+  HALT = 99,
 }
 
 enum Modes {
@@ -54,7 +55,7 @@ const compute = (source: string, inputs: number[]) => {
 
     const opcode = Number(first.substr(3))
 
-    if (opcode === 99) {
+    if (opcode === Ops.HALT) {
       break
     }
 
