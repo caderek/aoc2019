@@ -1,4 +1,4 @@
-# Advent of Code 2019 solutions (TypeScript)
+# 🎄 Advent of Code 2019 solutions (TypeScript) 🎄
 
 ## Join my leaderboard
 
