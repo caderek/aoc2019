@@ -3,25 +3,22 @@ import { alg, Graph, Edge } from "graphlib"
 
 const input = readInput()
 
-const prepareGraph = (input: string) => {
-  return input
+const prepareGraph = (input: string) =>
+  input
     .split("\n")
     .reduce(
       (g, x) => g.setEdge(...(x.split(")") as [string, string])),
       new Graph(),
     )
-}
 
-const countOrbits = (g: Graph) => {
-  return Object.values(alg.dijkstra(g, "COM")).reduce(
+const countOrbits = (g: Graph) =>
+  Object.values(alg.dijkstra(g, "COM")).reduce(
     (sum, { distance }) => sum + distance,
     0,
   )
-}
 
-const countOrbitalTransfers = (g: Graph) => {
-  return alg.dijkstra(g, "YOU", null, g.nodeEdges.bind(g)).SAN.distance - 2
-}
+const countOrbitalTransfers = (g: Graph) =>
+  alg.dijkstra(g, "YOU", null, g.nodeEdges.bind(g)).SAN.distance - 2
 
 /* Tests */
 
