@@ -1,11 +1,11 @@
 import { test, readInput } from "../utils/index"
-import { Graph, alg, GraphOptions, Edge } from "graphlib"
+import { alg, Graph, Edge } from "graphlib"
 
 const input = readInput()
 
-const prepareGraph = (input: string, options?: GraphOptions) => {
+const prepareGraph = (input: string) => {
   const orbitsMap = input.split("\n").map((x) => x.split(")"))
-  const graph = new Graph(options)
+  const graph = new Graph()
 
   orbitsMap.forEach(([a, b]) => graph.setEdge(a, b))
 
@@ -21,7 +21,7 @@ const goA = (input: string) => {
 }
 
 const goB = (input: string) => {
-  const graph = prepareGraph(input, { directed: false })
+  const graph = prepareGraph(input)
   const edgeFn = ((v) => graph.nodeEdges(v)) as (v: string) => Edge[]
 
   return alg.dijkstra(graph, "YOU", null, edgeFn).SAN.distance - 2
