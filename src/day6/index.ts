@@ -10,13 +10,7 @@ const prepareInput = (input: string) => {
   const graph = new Graph(items.length)
   const ids = new Map(items.map((item, id) => [item, id]))
 
-  orbitsMap.forEach(([a, b]) => {
-    const idA = ids.get(a)
-    const idB = ids.get(b)
-    graph.addEdge(idA, idB)
-    graph.node(idA).label = a
-    graph.node(idB).label = b
-  })
+  orbitsMap.forEach(([a, b]) => graph.addEdge(ids.get(a), ids.get(b)))
 
   return [graph, ids] as [Graph, Map<string, number>]
 }
