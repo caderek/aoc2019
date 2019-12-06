@@ -4,24 +4,23 @@ import { alg, Graph, Edge } from "graphlib"
 const input = readInput()
 
 const prepareGraph = (input: string) => {
-  const orbitsMap = input.split("\n").map((x) => x.split(")"))
-  const graph = new Graph()
-
-  orbitsMap.forEach(([a, b]) => graph.setEdge(a, b))
-
-  return graph
+  return input
+    .split("\n")
+    .reduce(
+      (g, x) => g.setEdge(...(x.split(")") as [string, string])),
+      new Graph(),
+    )
 }
 
-const countOrbits = (graph: Graph) => {
-  return Object.values(alg.dijkstra(graph, "COM"))
-    .map(({ distance }) => distance)
-    .reduce((a, b) => a + b)
+const countOrbits = (g: Graph) => {
+  return Object.values(alg.dijkstra(g, "COM")).reduce(
+    (sum, { distance }) => sum + distance,
+    0,
+  )
 }
 
-const countOrbitalTransfers = (graph: Graph) => {
-  const edgeFn = graph.nodeEdges.bind(graph) as (v: string) => Edge[]
-
-  return alg.dijkstra(graph, "YOU", null, edgeFn).SAN.distance - 2
+const countOrbitalTransfers = (g: Graph) => {
+  return alg.dijkstra(g, "YOU", null, g.nodeEdges.bind(g)).SAN.distance - 2
 }
 
 /* Tests */
