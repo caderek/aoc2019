@@ -21,6 +21,7 @@
     "@arrows/dispatch": "^1.0.2",
     "@arrows/multimethod": "^1.1.6",
     "get-caller-file": "^2.0.5",
+    "js-graph-algorithms": "^1.0.18",
     "kleur": "^3.0.3",
     "lodash": "^4.17.15"
   }
