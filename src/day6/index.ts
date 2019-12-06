@@ -22,12 +22,12 @@ const countOrbits = (input: string) => {
 
 const countOrbitalTransfers = (input: string) => {
   const graph = prepareGraph(input)
-  const edgeFn = ((v) => graph.nodeEdges(v)) as (v: string) => Edge[]
+  const edgeFn = graph.nodeEdges.bind(graph) as (v: string) => Edge[]
 
   return alg.dijkstra(graph, "YOU", null, edgeFn).SAN.distance - 2
 }
 
-// /* Tests */
+/* Tests */
 
 test(countOrbits("COM)B\nB)C\nC)D\nD)E\nE)F\nB)G\nG)H\nD)I\nE)J\nJ)K\nK)L"), 42)
 
@@ -38,7 +38,7 @@ test(
   4,
 )
 
-// /* Results */
+/* Results */
 
 console.time("Time")
 const resultA = countOrbits(input)
