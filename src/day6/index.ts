@@ -1,52 +1,33 @@
 import { test, readInput } from "../utils/index"
-import { Graph, DepthFirstSearch } from "js-graph-algorithms"
-import { last_ } from "@arrows/array"
+import { Graph, alg, GraphOptions, Edge } from "graphlib"
 
 const input = readInput()
 
-const prepareInput = (input: string) => {
+const prepareGraph = (input: string, options?: GraphOptions) => {
   const orbitsMap = input.split("\n").map((x) => x.split(")"))
-  const items = [...new Set(orbitsMap.flat())]
-  const graph = new Graph(items.length)
-  const ids = new Map(items.map((item, id) => [item, id]))
+  const graph = new Graph(options)
 
-  orbitsMap.forEach(([a, b]) => graph.addEdge(ids.get(a), ids.get(b)))
+  orbitsMap.forEach(([a, b]) => graph.setEdge(a, b))
 
-  return [graph, ids] as [Graph, Map<string, number>]
+  return graph
 }
 
 const goA = (input: string) => {
-  const [graph, ids] = prepareInput(input)
-  const start = ids.get("COM")
-  const dfs = new DepthFirstSearch(graph, start)
+  const graph = prepareGraph(input)
 
-  let orbits = 0
-
-  for (let v = 0; v < graph.V; ++v) {
-    if (dfs.hasPathTo(v)) {
-      orbits += dfs.pathTo(v).length - 1
-    }
-  }
-
-  return orbits
+  return Object.entries(alg.dijkstra(graph, "COM"))
+    .map(([_, { distance }]) => distance)
+    .reduce((a, b) => a + b)
 }
 
 const goB = (input: string) => {
-  const [graph, ids] = prepareInput(input)
-  const start = ids.get("YOU")
-  const dfs = new DepthFirstSearch(graph, start)
+  const graph = prepareGraph(input, { directed: false })
+  const edgeFn = ((v) => graph.nodeEdges(v)) as (v: string) => Edge[]
 
-  for (let v = 0; v < graph.V; ++v) {
-    if (dfs.hasPathTo(v)) {
-      const path = dfs.pathTo(v)
-      if (last_(path) === ids.get("SAN")) {
-        return path.length - 3
-      }
-    }
-  }
+  return alg.dijkstra(graph, "YOU", null, edgeFn).SAN.distance - 2
 }
 
-/* Tests */
+// /* Tests */
 
 test(goA("COM)B\nB)C\nC)D\nD)E\nE)F\nB)G\nG)H\nD)I\nE)J\nJ)K\nK)L"), 42)
 
@@ -55,7 +36,7 @@ test(
   4,
 )
 
-/* Results */
+// /* Results */
 
 console.time("Time")
 const resultA = goA(input)

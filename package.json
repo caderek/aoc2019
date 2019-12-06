@@ -7,6 +7,7 @@
     "start": "node ./scripts/start.js"
   },
   "devDependencies": {
+    "@types/graphlib": "^2.1.5",
     "@types/lodash": "^4.14.149",
     "@types/node": "^12.12.14",
     "core-js": "^3.4.5",
@@ -21,7 +22,7 @@
     "@arrows/dispatch": "^1.0.2",
     "@arrows/multimethod": "^1.1.6",
     "get-caller-file": "^2.0.5",
-    "js-graph-algorithms": "^1.0.18",
+    "graphlib": "^2.1.8",
     "kleur": "^3.0.3",
     "lodash": "^4.17.15"
   }
