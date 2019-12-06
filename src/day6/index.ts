@@ -1,5 +1,5 @@
 import { test, readInput } from "../utils/index"
-import { alg, Graph, Edge } from "graphlib"
+import { alg, Graph } from "graphlib"
 
 const input = readInput()
 
