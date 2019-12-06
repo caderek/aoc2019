@@ -13,8 +13,8 @@ const prepareGraph = (input: string) => {
 }
 
 const countOrbits = (graph: Graph) => {
-  return Object.entries(alg.dijkstra(graph, "COM"))
-    .map(([_, { distance }]) => distance)
+  return Object.values(alg.dijkstra(graph, "COM"))
+    .map(({ distance }) => distance)
     .reduce((a, b) => a + b)
 }
 
