@@ -43,7 +43,7 @@ const getValue = (
 
 const compute = async (
   source: string,
-  initialInput: number[],
+  phaseSettings: number[],
   inputs: number[],
   outputs: number[],
 ) => {
@@ -81,8 +81,8 @@ const compute = async (
         break
       }
       case Ops.INPUT: {
-        if (initialInput.length > 0) {
-          program[program[pointer + 1]] = initialInput.shift()
+        if (phaseSettings.length > 0) {
+          program[program[pointer + 1]] = phaseSettings.shift()
         } else if (inputs.length > 0) {
           program[program[pointer + 1]] = inputs.shift()
         } else {
