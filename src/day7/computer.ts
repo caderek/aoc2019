@@ -26,7 +26,7 @@ enum Modes {
   IMMEDIATE,
 }
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+const unblock = () => new Promise((resolve) => setImmediate(resolve))
 
 const getValue = (
   program: number[],
@@ -86,7 +86,7 @@ const compute = async (
         } else if (inputs.length > 0) {
           program[program[pointer + 1]] = inputs.shift()
         } else {
-          await delay(0)
+          await unblock()
           shouldJump = false
         }
         break
