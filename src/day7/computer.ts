@@ -119,6 +119,8 @@ const compute = async (
       pointer += Jumps[Ops[opcode]]
     }
   }
+
+  return outputs
 }
 
 export default compute
