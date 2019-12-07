@@ -38,11 +38,11 @@ const goA = async (source: string) => {
     const out5 = []
 
     await Promise.all([
-      compute(source, [a], [0], out1),
-      compute(source, [b], out1, out2),
-      compute(source, [c], out2, out3),
-      compute(source, [d], out3, out4),
-      compute(source, [e], out4, out5),
+      compute(source, [0], out1, [a]),
+      compute(source, out1, out2, [b]),
+      compute(source, out2, out3, [c]),
+      compute(source, out3, out4, [d]),
+      compute(source, out4, out5, [e]),
     ])
 
     thrusterSignals.push(last_(out5))
@@ -63,11 +63,11 @@ const goB = async (source: string) => {
     const out5 = [0]
 
     await Promise.all([
-      compute(source, [a], out5, out1),
-      compute(source, [b], out1, out2),
-      compute(source, [c], out2, out3),
-      compute(source, [d], out3, out4),
-      compute(source, [e], out4, out5),
+      compute(source, out5, out1, [a]),
+      compute(source, out1, out2, [b]),
+      compute(source, out2, out3, [c]),
+      compute(source, out3, out4, [d]),
+      compute(source, out4, out5, [e]),
     ])
 
     thrusterSignals.push(last_(out5))

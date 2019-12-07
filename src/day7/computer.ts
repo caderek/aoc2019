@@ -43,9 +43,9 @@ const getValue = (
 
 const compute = async (
   source: string,
-  phaseSettings: number[],
   inputs: number[],
   outputs: number[],
+  phaseSettings: number[],
 ) => {
   const program = source.split(",").map(Number)
 
