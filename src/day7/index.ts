@@ -8,67 +8,68 @@ const input = prepareInput(readInput())
 
 const arePhasesUnique = (phases) => new Set(phases).size === phases.length
 
-const goA = async (source) => {
-  const outputs = []
-  for (let i = 0; i < 5; i++) {
-    for (let j = 0; j < 5; j++) {
-      for (let k = 0; k < 5; k++) {
-        for (let l = 0; l < 5; l++) {
-          for (let m = 0; m < 5; m++) {
-            if (arePhasesUnique([i, j, k, l, m])) {
-              const out1 = []
-              const out2 = []
-              const out3 = []
-              const out4 = []
-              const out5 = []
-
-              await Promise.all([
-                compute(source, [i], [0], out1),
-                compute(source, [j], out1, out2),
-                compute(source, [k], out2, out3),
-                compute(source, [l], out3, out4),
-                compute(source, [m], out4, out5),
-              ])
-
-              outputs.push(last_(out5))
+function* generatePhaseSequences(from, to) {
+  for (let i = from; i < to; i++) {
+    for (let j = from; j < to; j++) {
+      for (let k = from; k < to; k++) {
+        for (let l = from; l < to; l++) {
+          for (let m = from; m < to; m++) {
+            const phases = [i, j, k, l, m]
+            if (arePhasesUnique(phases)) {
+              yield phases
             }
           }
         }
       }
     }
   }
+}
+
+const goA = async (source) => {
+  const phaseSequences = generatePhaseSequences(0, 5)
+  const outputs = []
+
+  for (const [a, b, c, d, e] of phaseSequences) {
+    const out1 = []
+    const out2 = []
+    const out3 = []
+    const out4 = []
+    const out5 = []
+
+    await Promise.all([
+      compute(source, [a], [0], out1),
+      compute(source, [b], out1, out2),
+      compute(source, [c], out2, out3),
+      compute(source, [d], out3, out4),
+      compute(source, [e], out4, out5),
+    ])
+
+    outputs.push(last_(out5))
+  }
 
   return Math.max(...outputs)
 }
 
 const goB = async (source) => {
+  const phaseSequences = generatePhaseSequences(5, 10)
   const outputs = []
-  for (let i = 5; i < 10; i++) {
-    for (let j = 5; j < 10; j++) {
-      for (let k = 5; k < 10; k++) {
-        for (let l = 5; l < 10; l++) {
-          for (let m = 5; m < 10; m++) {
-            if (arePhasesUnique([i, j, k, l, m])) {
-              const out1 = []
-              const out2 = []
-              const out3 = []
-              const out4 = []
-              const out5 = [0]
 
-              await Promise.all([
-                compute(source, [i], out5, out1),
-                compute(source, [j], out1, out2),
-                compute(source, [k], out2, out3),
-                compute(source, [l], out3, out4),
-                compute(source, [m], out4, out5),
-              ])
+  for (const [a, b, c, d, e] of phaseSequences) {
+    const out1 = []
+    const out2 = []
+    const out3 = []
+    const out4 = []
+    const out5 = [0]
 
-              outputs.push(last_(out5))
-            }
-          }
-        }
-      }
-    }
+    await Promise.all([
+      compute(source, [a], out5, out1),
+      compute(source, [b], out1, out2),
+      compute(source, [c], out2, out3),
+      compute(source, [d], out3, out4),
+      compute(source, [e], out4, out5),
+    ])
+
+    outputs.push(last_(out5))
   }
 
   return Math.max(...outputs)
