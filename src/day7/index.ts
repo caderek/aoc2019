@@ -6,9 +6,10 @@ const prepareInput = (rawInput: string) => rawInput
 
 const input = prepareInput(readInput())
 
-const arePhasesUnique = (phases) => new Set(phases).size === phases.length
+const arePhasesUnique = (phases: number[]) =>
+  new Set(phases).size === phases.length
 
-function* generatePhaseSequences(from, to) {
+function* generatePhaseSequences(from: number, to: number) {
   for (let i = from; i < to; i++) {
     for (let j = from; j < to; j++) {
       for (let k = from; k < to; k++) {
@@ -25,9 +26,9 @@ function* generatePhaseSequences(from, to) {
   }
 }
 
-const goA = async (source) => {
+const goA = async (source: string) => {
   const phaseSequences = generatePhaseSequences(0, 5)
-  const outputs = []
+  const outputs: number[] = []
 
   for (const [a, b, c, d, e] of phaseSequences) {
     const out1 = []
@@ -50,9 +51,9 @@ const goA = async (source) => {
   return Math.max(...outputs)
 }
 
-const goB = async (source) => {
+const goB = async (source: string) => {
   const phaseSequences = generatePhaseSequences(5, 10)
-  const outputs = []
+  const outputs: number[] = []
 
   for (const [a, b, c, d, e] of phaseSequences) {
     const out1 = []
