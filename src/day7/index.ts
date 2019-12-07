@@ -28,7 +28,7 @@ function* generatePhaseSequences(from: number, to: number) {
 
 const goA = async (source: string) => {
   const phaseSequences = generatePhaseSequences(0, 5)
-  const outputs: number[] = []
+  const thrusterSignals: number[] = []
 
   for (const [a, b, c, d, e] of phaseSequences) {
     const out1 = []
@@ -45,15 +45,15 @@ const goA = async (source: string) => {
       compute(source, [e], out4, out5),
     ])
 
-    outputs.push(last_(out5))
+    thrusterSignals.push(last_(out5))
   }
 
-  return Math.max(...outputs)
+  return Math.max(...thrusterSignals)
 }
 
 const goB = async (source: string) => {
   const phaseSequences = generatePhaseSequences(5, 10)
-  const outputs: number[] = []
+  const thrusterSignals: number[] = []
 
   for (const [a, b, c, d, e] of phaseSequences) {
     const out1 = []
@@ -70,10 +70,10 @@ const goB = async (source: string) => {
       compute(source, [e], out4, out5),
     ])
 
-    outputs.push(last_(out5))
+    thrusterSignals.push(last_(out5))
   }
 
-  return Math.max(...outputs)
+  return Math.max(...thrusterSignals)
 }
 
 /* Tests */
