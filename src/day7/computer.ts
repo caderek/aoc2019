@@ -26,7 +26,7 @@ enum Modes {
   IMMEDIATE,
 }
 
-const unblock = () => new Promise((resolve) => setImmediate(resolve))
+const unblock = () => new Promise(setImmediate)
 
 const getValue = (
   program: number[],
