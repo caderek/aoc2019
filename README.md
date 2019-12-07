@@ -81,37 +81,37 @@ Solution to part 2: 5269882
 
 day2
 ------------------------------
-Time: 61.289ms
+Time: 70.286ms
 Solution to part 1: 5290681
 Solution to part 2: 5741
 
 day3
 ------------------------------
-Time: 437.825ms
+Time: 421.366ms
 Solution to part 1: 258
 Solution to part 2: 12304
 
 day4
 ------------------------------
-Time: 165.896ms
+Time: 166.571ms
 Solution to part 1: 511
 Solution to part 2: 316
 
 day5
 ------------------------------
-Time: 0.509ms
+Time: 0.591ms
 Solution to part 1: 13978427
 Solution to part 2: 11189491
 
 day6
 ------------------------------
-Time: 90.505ms
+Time: 87.685ms
 Solution to part 1: 300598
 Solution to part 2: 520
 
 day7
 ------------------------------
-Time: 111.493ms
+Time: 60.155ms
 Solution to part 1: 255590
 Solution to part 2: 58285150
 ```
