@@ -48,7 +48,7 @@ const goB = async (source) => {
       for (let k = 5; k < 10; k++) {
         for (let l = 5; l < 10; l++) {
           for (let m = 5; m < 10; m++) {
-            if ([...new Set([i, j, k, l, m])].length === 5) {
+            if (arePhasesUnique([i, j, k, l, m])) {
               const out1 = []
               const out2 = []
               const out3 = []
