@@ -6,6 +6,8 @@ const prepareInput = (rawInput: string) => rawInput
 
 const input = prepareInput(readInput())
 
+const arePhasesUnique = (phases) => new Set(phases).size === phases.length
+
 const goA = async (source) => {
   const outputs = []
   for (let i = 0; i < 5; i++) {
@@ -13,7 +15,7 @@ const goA = async (source) => {
       for (let k = 0; k < 5; k++) {
         for (let l = 0; l < 5; l++) {
           for (let m = 0; m < 5; m++) {
-            if ([...new Set([i, j, k, l, m])].length === 5) {
+            if (arePhasesUnique([i, j, k, l, m])) {
               const out1 = []
               const out2 = []
               const out3 = []
@@ -27,6 +29,7 @@ const goA = async (source) => {
                 compute(source, [l], out3, out4),
                 compute(source, [m], out4, out5),
               ])
+
               outputs.push(last_(out5))
             }
           }
@@ -100,7 +103,7 @@ const main = async () => {
   console.timeEnd("Time")
 
   console.log("Solution to part 1:", resultA) // -> 255590
-  console.log("Solution to part 2:", resultB)
+  console.log("Solution to part 2:", resultB) // -> 58285150
 }
 
 main()
