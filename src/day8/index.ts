@@ -1,56 +1,31 @@
-import { test, readInput } from "../utils/index"
+import arr from "@arrows/array"
+import { readInput } from "../utils/index"
 
 const prepareInput = (rawInput: string) => rawInput.split("").map(Number)
 
 const input = prepareInput(readInput())
 
-const goA = (input: number[]) => {
-  const layers = []
-  for (let i = 0; i < input.length; i = i + 25 * 6) {
-    layers.push(input.slice(i, i + 25 * 6))
-  }
+const goA = (input: number[]) =>
+  input
+    .chain(arr.chunk_(25 * 6))
+    .chain(arr.sortBy_.num((a: number[]) => a.filter((x) => x === 0).length))
+    .chain(arr.first_)
+    .chain(
+      (layer) =>
+        layer.filter((x) => x === 1).length *
+        layer.filter((x) => x === 2).length,
+    )
 
-  const maxZeros = layers.sort(
-    (a, b) => a.filter((x) => x === 0).length - b.filter((x) => x === 0).length,
-  )[0]
-
-  return (
-    maxZeros.filter((x) => x === 1).length *
-    maxZeros.filter((x) => x === 2).length
-  )
-}
-
-const goB = (input: number[]) => {
-  const layers = []
-  for (let i = 0; i < input.length; i = i + 25 * 6) {
-    layers.push(input.slice(i, i + 25 * 6))
-  }
-
-  const fromBottom = layers.reverse()
-
-  const layered = []
-
-  for (const layer of fromBottom) {
-    for (let i = 0; i < layer.length; i++) {
-      layered[i] = layer[i] === 2 ? layered[i] : layer[i]
-    }
-  }
-
-  const rows = []
-  for (let j = 0; j < layered.length; j = j + 25) {
-    rows.push(layered.slice(j, j + 25))
-  }
-
-  return rows
-    .map((z) => z.join(" "))
+const goB = (input: number[]) =>
+  input
+    .chain(arr.chunk_(25 * 6))
+    .reverse()
+    .reduce(arr.zipWith_((a, b) => (b === 2 ? a : b)))
+    .chain(arr.chunk_(25))
+    .map(arr.join(" "))
     .join("\n")
     .replace(/0/g, " ")
     .replace(/1/g, "#")
-}
-
-/* Tests */
-
-// test()
 
 /* Results */
 
@@ -59,6 +34,17 @@ const resultA = goA(input)
 const resultB = goB(input)
 console.timeEnd("Time")
 
-console.log("Solution to part 1:", resultA)
+console.log("Solution to part 1:", resultA) // -> 2250
 console.log("Solution to part 2:")
 console.log(resultB)
+
+/* ->
+
+# # # #   #     #       # #   #     #   #        
+#         #     #         #   #     #   #        
+# # #     # # # #         #   #     #   #        
+#         #     #         #   #     #   #        
+#         #     #   #     #   #     #   #        
+#         #     #     # #       # #     # # # # 
+
+*/
