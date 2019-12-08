@@ -1,6 +1,6 @@
 interface Object {
-  chain(fn: (...args: any[]) => any): any
-  tap<T>(fn: (arg: T, ...args: any[]) => any): T
+  chain<T>(fn: (arg: T) => any): any
+  tap<T>(fn: (arg: T) => any): T
 }
 
 Object.prototype.chain = function(fn) {
