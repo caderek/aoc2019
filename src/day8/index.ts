@@ -10,11 +10,8 @@ const goA = (input: number[]) =>
     .chain(arr.chunk_(25 * 6))
     .chain(arr.sortBy_.num((a: number[]) => a.filter((x) => x === 0).length))
     .chain(arr.first_)
-    .chain(
-      (layer) =>
-        layer.filter((x) => x === 1).length *
-        layer.filter((x) => x === 2).length,
-    )
+    .join("")
+    .chain((s) => s.match(/1/g).length * s.match(/2/g).length)
 
 const goB = (input: number[]) =>
   input
