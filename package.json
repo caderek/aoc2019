@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@arrows/array": "^1.2.1",
+    "@arrows/arrows": "^0.4.0",
     "@arrows/composition": "^1.2.1",
     "@arrows/dispatch": "^1.0.2",
     "@arrows/multimethod": "^1.1.6",

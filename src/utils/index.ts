@@ -1,3 +1,4 @@
+import "./monkey"
 import { test } from "./test"
 import { readInput } from "./readInput"
 

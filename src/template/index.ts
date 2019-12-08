@@ -1,3 +1,4 @@
+import { arr, com, dis, mul } from "@arrows/arrows"
 import { test, readInput } from "../utils/index"
 
 const prepareInput = (rawInput: string) => rawInput

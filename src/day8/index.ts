@@ -28,23 +28,24 @@ const goB = (input: number[]) => {
 
   const fromBottom = layers.reverse()
 
-  const image = Array.from({ length: 250 }).fill(" ")
+  const layered = []
 
   for (const layer of fromBottom) {
     for (let i = 0; i < layer.length; i++) {
-      image[i] = layer[i] === 2 ? image[i] : layer[i]
+      layered[i] = layer[i] === 2 ? layered[i] : layer[i]
     }
   }
 
-  const xx = []
-  for (let j = 0; j < image.length; j = j + 25) {
-    xx.push(image.slice(j, j + 25))
+  const rows = []
+  for (let j = 0; j < layered.length; j = j + 25) {
+    rows.push(layered.slice(j, j + 25))
   }
 
-  return xx
-    .map((z) => z.join(""))
+  return rows
+    .map((z) => z.join(" "))
     .join("\n")
     .replace(/0/g, " ")
+    .replace(/1/g, "#")
 }
 
 /* Tests */
@@ -58,6 +59,6 @@ const resultA = goA(input)
 const resultB = goB(input)
 console.timeEnd("Time")
 
-console.log("Solution to part 1:\n", resultA)
+console.log("Solution to part 1:", resultA)
 console.log("Solution to part 2:")
 console.log(resultB)
