@@ -1,3 +1,4 @@
+import * as R from "ramda"
 import { arr, com, dis, mul } from "@arrows/arrows"
 import { test, readInput } from "../utils/index"
 
@@ -17,7 +18,11 @@ const goB = (rawInput: string) => {
 
 /* Tests */
 
-// test()
+// test(goA(""), )
+// test(goA(""), )
+
+// test(goB(""), )
+// test(goB(""), )
 
 /* Results */
 
@@ -28,5 +33,7 @@ const resultA = goA(input)
 const resultB = goB(input)
 console.timeEnd("Time")
 
-console.log("Solution to part 1:", resultA)
-console.log("Solution to part 2:", resultB)
+console.log("Solution to part 1:")
+console.log(resultA)
+console.log("Solution to part 2:")
+console.log(resultB)

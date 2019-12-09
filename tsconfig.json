@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2019",
+    "target": "ESNext",
     "module": "commonjs",
     "removeComments": false,
     "declaration": true,
     "preserveConstEnums": true,
-    "strict": false
+    "strict": false,
+    "sourceMap": true,
+    "watch": true
   },
   "include": ["src", "examples/passThrough.ts"],
   "exclude": ["node_modules", "src/**/*.test.ts", "src/**/*.temp.ts"]
