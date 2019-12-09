@@ -40,10 +40,10 @@ const getValue = (
 ) => {
   return program[
     params[index] === Modes.POSITION
-      ? Number(program[pointer + index + 1])
+      ? program[pointer + index + 1]
       : params[index] === Modes.IMMEDIATE
       ? pointer + index + 1
-      : relativeBase + Number(program[pointer + index + 1])
+      : relativeBase + program[pointer + index + 1]
   ]
 }
 
@@ -51,12 +51,11 @@ const getWriteIndex = (
   program: number[],
   params: number[],
   pointer: number,
-  index: number,
   relativeBase: number,
-) => {
+) => (index: number) => {
   return params[index] === Modes.RELATIVE
-    ? relativeBase + Number(program[pointer + index + 1])
-    : Number(program[pointer + index + 1])
+    ? relativeBase + program[pointer + index + 1]
+    : program[pointer + index + 1]
 }
 
 const compute = async (
@@ -93,26 +92,22 @@ const compute = async (
     const a = getValue(program, params, pointer, 0, relativeBase)
     const b = getValue(program, params, pointer, 1, relativeBase)
 
+    const getIndex = getWriteIndex(program, params, pointer, relativeBase)
+
     switch (opcode) {
       case Ops.ADD: {
-        program[getWriteIndex(program, params, pointer, 2, relativeBase)] =
-          a + b
+        program[getIndex(2)] = a + b
         break
       }
       case Ops.MULTIPLY: {
-        program[getWriteIndex(program, params, pointer, 2, relativeBase)] =
-          a * b
+        program[getIndex(2)] = a * b
         break
       }
       case Ops.INPUT: {
         if (phaseSettings.length > 0) {
-          program[
-            getWriteIndex(program, params, pointer, 0, relativeBase)
-          ] = phaseSettings.shift()
+          program[getIndex(0)] = phaseSettings.shift()
         } else if (inputs.length > 0) {
-          program[
-            getWriteIndex(program, params, pointer, 0, relativeBase)
-          ] = inputs.shift()
+          program[getIndex(0)] = inputs.shift()
         } else {
           await unblock()
           shouldJump = false
@@ -124,27 +119,25 @@ const compute = async (
         break
       }
       case Ops.JUMP_IF_TRUE: {
-        pointer = a !== 0 ? Number(b) : pointer
+        pointer = a !== 0 ? b : pointer
         shouldJump = a === 0
         break
       }
       case Ops.JUMP_IF_FALSE: {
-        pointer = a === 0 ? Number(b) : pointer
+        pointer = a === 0 ? b : pointer
         shouldJump = a !== 0
         break
       }
       case Ops.LESS_THAN: {
-        program[getWriteIndex(program, params, pointer, 2, relativeBase)] =
-          a < b ? 1 : 0
+        program[getIndex(2)] = a < b ? 1 : 0
         break
       }
       case Ops.EQUALS: {
-        program[getWriteIndex(program, params, pointer, 2, relativeBase)] =
-          a === b ? 1 : 0
+        program[getIndex(2)] = a === b ? 1 : 0
         break
       }
       case Ops.RELATIVE_BASE_OFFSET: {
-        relativeBase += Number(a)
+        relativeBase += a
         break
       }
     }
