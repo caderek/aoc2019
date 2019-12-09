@@ -5,8 +5,8 @@ const rawInput = readInput()
 const go = (input: string, noun?: number, verb?: number) => {
   const arr = input.split(",").map(Number)
 
-  arr[1] = noun ?? arr[1]
-  arr[2] = verb ?? arr[2]
+  arr[1] = noun !== undefined ? noun : arr[1]
+  arr[2] = verb !== undefined ? verb : arr[2]
 
   for (let i = 0; arr[i] !== 99; i += 4) {
     arr[arr[i + 3]] =
