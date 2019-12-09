@@ -63,7 +63,7 @@ const compute = async (
   inputs: number[] = [],
   outputs: number[] = [],
   phaseSettings: number[] = [],
-  freeMemorySize: number = 1000000,
+  freeMemorySize: number = 100,
 ) => {
   const program = source
     .split(",")
