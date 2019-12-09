@@ -32,7 +32,7 @@ enum Modes {
 const unblock = () => new Promise(setImmediate)
 
 const getValue = (
-  program: bigint[],
+  program: number[],
   params: number[],
   pointer: number,
   index: number,
@@ -48,7 +48,7 @@ const getValue = (
 }
 
 const getWriteIndex = (
-  program: bigint[],
+  program: number[],
   params: number[],
   pointer: number,
   index: number,
@@ -61,14 +61,14 @@ const getWriteIndex = (
 
 const compute = async (
   source: string,
-  inputs: bigint[],
-  outputs: bigint[] = [],
-  phaseSettings: bigint[] = [],
+  inputs: number[] = [],
+  outputs: number[] = [],
+  phaseSettings: number[] = [],
 ) => {
   const program = source
     .split(",")
-    .map(BigInt)
-    .concat(Array.from({ length: 1000000 }, () => 0n))
+    .map(Number)
+    .concat(Array.from({ length: 1000000 }, () => 0))
 
   let pointer = 0
   let relativeBase = 0
@@ -124,23 +124,23 @@ const compute = async (
         break
       }
       case Ops.JUMP_IF_TRUE: {
-        pointer = a !== 0n ? Number(b) : pointer
-        shouldJump = a === 0n
+        pointer = a !== 0 ? Number(b) : pointer
+        shouldJump = a === 0
         break
       }
       case Ops.JUMP_IF_FALSE: {
-        pointer = a === 0n ? Number(b) : pointer
-        shouldJump = a !== 0n
+        pointer = a === 0 ? Number(b) : pointer
+        shouldJump = a !== 0
         break
       }
       case Ops.LESS_THAN: {
         program[getWriteIndex(program, params, pointer, 2, relativeBase)] =
-          a < b ? 1n : 0n
+          a < b ? 1 : 0
         break
       }
       case Ops.EQUALS: {
         program[getWriteIndex(program, params, pointer, 2, relativeBase)] =
-          a === b ? 1n : 0n
+          a === b ? 1 : 0
         break
       }
       case Ops.RELATIVE_BASE_OFFSET: {
