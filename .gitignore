@@ -2,3 +2,6 @@ node_modules
 .history
 yarn.lock
 lib
+src/**/*.js
+src/**/*.js.map
+src/**/*.d.ts

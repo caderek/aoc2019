@@ -3,13 +3,15 @@ import { test, readInput } from "../utils/index"
 
 const prepareInput = (rawInput: string) => rawInput
 
-const input = prepareInput(readInput())
+const goA = (rawInput: string) => {
+  const input = prepareInput(rawInput)
 
-const goA = (input) => {
   return
 }
 
-const goB = (input) => {
+const goB = (rawInput: string) => {
+  const input = prepareInput(rawInput)
+
   return
 }
 
@@ -18,6 +20,8 @@ const goB = (input) => {
 // test()
 
 /* Results */
+
+const input = readInput()
 
 console.time("Time")
 const resultA = goA(input)
