@@ -63,11 +63,12 @@ const compute = async (
   inputs: number[] = [],
   outputs: number[] = [],
   phaseSettings: number[] = [],
+  freeMemorySize: number = 1000000,
 ) => {
   const program = source
     .split(",")
     .map(Number)
-    .concat(Array.from({ length: 1000000 }, () => 0))
+    .concat(Array.from({ length: freeMemorySize }, () => 0))
 
   let pointer = 0
   let relativeBase = 0
