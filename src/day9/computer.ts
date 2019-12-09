@@ -31,6 +31,13 @@ enum Modes {
 
 const unblock = () => new Promise(setImmediate)
 
+const calculations: { [key: string]: (a: number, b: number) => number } = {
+  [Ops.ADD]: (a, b) => a + b,
+  [Ops.MULTIPLY]: (a, b) => a * b,
+  [Ops.LESS_THAN]: (a, b) => Number(a < b),
+  [Ops.EQUALS]: (a, b) => Number(a === b),
+}
+
 const getValue = (
   program: number[],
   params: number[],
@@ -96,12 +103,11 @@ const compute = async (
     const getIndex = getWriteIndex(program, params, pointer, relativeBase)
 
     switch (opcode) {
-      case Ops.ADD: {
-        program[getIndex(2)] = a + b
-        break
-      }
-      case Ops.MULTIPLY: {
-        program[getIndex(2)] = a * b
+      case Ops.ADD:
+      case Ops.MULTIPLY:
+      case Ops.LESS_THAN:
+      case Ops.EQUALS: {
+        program[getIndex(2)] = calculations[opcode](a, b)
         break
       }
       case Ops.INPUT: {
@@ -127,14 +133,6 @@ const compute = async (
       case Ops.JUMP_IF_FALSE: {
         pointer = a === 0 ? b : pointer
         shouldJump = a !== 0
-        break
-      }
-      case Ops.LESS_THAN: {
-        program[getIndex(2)] = a < b ? 1 : 0
-        break
-      }
-      case Ops.EQUALS: {
-        program[getIndex(2)] = a === b ? 1 : 0
         break
       }
       case Ops.RELATIVE_BASE_OFFSET: {
