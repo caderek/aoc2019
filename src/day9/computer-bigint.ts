@@ -6,8 +6,8 @@ enum Jumps {
   JUMP_IF_TRUE = 3,
   JUMP_IF_FALSE = 3,
   LESS_THAN = 4,
-  RELATIVE_BASE_OFFSET = 2,
   EQUALS = 4,
+  RELATIVE_BASE_OFFSET = 2,
 }
 
 enum Ops {
