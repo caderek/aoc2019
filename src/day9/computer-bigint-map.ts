@@ -29,10 +29,6 @@ enum Modes {
   RELATIVE,
 }
 
-type Program = {
-  [address: string]: bigint
-}
-
 const unblock = () => new Promise(setImmediate)
 
 const calculations: { [key: string]: (a: bigint, b: bigint) => bigint } = {
@@ -43,32 +39,30 @@ const calculations: { [key: string]: (a: bigint, b: bigint) => bigint } = {
 }
 
 const getValue = (
-  program: Program,
+  program: Map<bigint, bigint>,
   params: number[],
   pointer: bigint,
   index: number,
   relativeBase: bigint,
 ) => {
-  return program[
+  return program.get(
     params[index] === Modes.POSITION
-      ? String(program[String(pointer + BigInt(index) + 1n)])
+      ? program.get(pointer + BigInt(index) + 1n)
       : params[index] === Modes.IMMEDIATE
-      ? String(pointer + BigInt(index) + 1n)
-      : String(relativeBase + program[String(pointer + BigInt(index) + 1n)])
-  ]
+      ? pointer + BigInt(index) + 1n
+      : relativeBase + program.get(pointer + BigInt(index) + 1n),
+  )
 }
 
 const getWriteIndex = (
-  program: Program,
+  program: Map<bigint, bigint>,
   params: number[],
   pointer: bigint,
   relativeBase: bigint,
 ) => (index: number) => {
   return params[index] === Modes.RELATIVE
-    ? String(
-        relativeBase + BigInt(program[String(pointer + BigInt(index) + 1n)]),
-      )
-    : String(program[String(pointer + BigInt(index) + 1n)])
+    ? relativeBase + BigInt(program.get(pointer + BigInt(index) + 1n))
+    : program.get(pointer + BigInt(index) + 1n)
 }
 
 const compute = async (
@@ -78,19 +72,19 @@ const compute = async (
   phaseSettings: bigint[] = [],
   freeMemorySize: number = 100,
 ) => {
-  const program = Object.fromEntries(
+  const program = new Map(
     source
       .split(",")
       .map(BigInt)
       .concat(Array.from({ length: freeMemorySize }, () => 0n))
-      .map((val, i) => [i, val]),
+      .map((val, i) => [BigInt(i), val]),
   )
 
   let pointer = 0n
   let relativeBase = 0n
 
   while (true) {
-    const first = String(program[String(pointer)]).padStart(5, "0")
+    const first = String(program.get(pointer)).padStart(5, "0")
 
     const opcode = Number(first.substr(3))
 
@@ -116,14 +110,14 @@ const compute = async (
       case Ops.MULTIPLY:
       case Ops.LESS_THAN:
       case Ops.EQUALS: {
-        program[getIndex(2)] = calculations[opcode](a, b)
+        program.set(getIndex(2), calculations[opcode](a, b))
         break
       }
       case Ops.INPUT: {
         if (phaseSettings.length > 0) {
-          program[getIndex(0)] = phaseSettings.shift()
+          program.set(getIndex(0), phaseSettings.shift())
         } else if (inputs.length > 0) {
-          program[getIndex(0)] = inputs.shift()
+          program.set(getIndex(0), inputs.shift())
         } else {
           await unblock()
           shouldJump = false
