@@ -9,13 +9,13 @@ const prepareInput = (rawInput: string) =>
     )
     .filter((x) => x !== null)
 
-const whichHalf = (x, y) => ((x >= 0 && y < 0) || (x > 0 && y >= 0) ? 0 : 1)
+const whichHalf = (x) => (x >= 0 ? 0 : 1)
 
 const getRelativeAsteroids = (X, Y, asteroids) =>
   asteroids
     .filter(([x, y]) => x !== X || y !== Y)
     .map(([x, y]) => [x - X, y - Y])
-    .map(([x, y]) => [x, y, y / x, whichHalf(x, y)])
+    .map(([x, y]) => [x, y, y / x, whichHalf(x)])
 
 const goA = (rawInput: string) => {
   const asteroids = prepareInput(rawInput)
@@ -64,9 +64,7 @@ const goB = (rawInput: string, [X, Y]: number[]) => {
     })
   }
 
-  // Of by one??? When changed to 199 element then works ;/
-  // The example gives all positions correct except the 200th ;/
-  return destroyed[198][0] * 100 + destroyed[198][1]
+  return destroyed[199][0] * 100 + destroyed[199][1]
 }
 
 /* Tests */
@@ -192,6 +190,6 @@ const resultB = goB(input, resultA.cords)
 console.timeEnd("Time")
 
 console.log("Solution to part 1:")
-console.log(resultA.max)
+console.log(resultA.max) // -> 214
 console.log("Solution to part 2:")
-console.log(resultB)
+console.log(resultB) // -> 502
