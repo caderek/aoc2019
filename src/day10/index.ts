@@ -2,6 +2,10 @@ import * as R from "ramda"
 import { test, readInput } from "../utils/index"
 
 type Asteroid = [number, number]
+enum Half {
+  RIGHT,
+  LEFT,
+}
 
 const prepareInput = (rawInput: string) =>
   rawInput
@@ -11,7 +15,7 @@ const prepareInput = (rawInput: string) =>
     )
     .filter((x) => x !== null)
 
-const whichHalf = (x: number) => (x >= 0 ? 0 : 1)
+const whichHalf = (x: number) => (x >= 0 ? Half.RIGHT : Half.LEFT)
 
 const getRelativeAsteroids = (X: number, Y: number, asteroids: Asteroid[]) =>
   asteroids
