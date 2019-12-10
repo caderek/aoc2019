@@ -10,8 +10,8 @@ enum Half {
 const prepareInput = (rawInput: string) =>
   rawInput
     .split("\n")
-    .flatMap((row, i) =>
-      row.split("").map((item, j) => (item === "#" ? [j, i] : null)),
+    .flatMap((row, y) =>
+      row.split("").map((item, x) => (item === "#" ? [x, y] : null)),
     )
     .filter((x) => x !== null)
 
