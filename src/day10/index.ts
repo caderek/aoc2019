@@ -57,7 +57,7 @@ const goB = (rawInput: string, [X, Y]: number[]) => {
   const groupedValues = [...grouped.values()]
   const destroyed: Asteroid[] = []
 
-  while (destroyed.length < relativeAsteroids.length) {
+  while (destroyed.length < 200) {
     groupedValues.forEach((series) => {
       const item = series.shift()
       if (item) {
