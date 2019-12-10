@@ -11,7 +11,7 @@
 ![Day](https://badgen.net/badge/07/%E2%98%85%E2%98%85/blue)
 ![Day](https://badgen.net/badge/08/%E2%98%85%E2%98%85/blue)
 ![Day](https://badgen.net/badge/09/%E2%98%85%E2%98%85/blue)
-![Day](https://badgen.net/badge/10/%E2%98%86%E2%98%86/grey)
+![Day](https://badgen.net/badge/10/%E2%98%85%E2%98%85/blue)
 ![Day](https://badgen.net/badge/11/%E2%98%86%E2%98%86/grey)
 ![Day](https://badgen.net/badge/12/%E2%98%86%E2%98%86/grey)
 ![Day](https://badgen.net/badge/13/%E2%98%86%E2%98%86/grey)
@@ -75,49 +75,49 @@ The repo uses this template: [aoc-starter-ts](https://github.com/caderek/aoc-sta
 ```
 day1
 ------------------------------
-Time: 0.252ms
+Time: 0.258ms
 Solution to part 1: 3515171
 Solution to part 2: 5269882
 
 day2
 ------------------------------
-Time: 58.876ms
+Time: 59.799ms
 Solution to part 1: 5290681
 Solution to part 2: 5741
 
 day3
 ------------------------------
-Time: 437.205ms
+Time: 465.598ms
 Solution to part 1: 258
 Solution to part 2: 12304
 
 day4
 ------------------------------
-Time: 170.178ms
+Time: 181.741ms
 Solution to part 1: 511
 Solution to part 2: 316
 
 day5
 ------------------------------
-Time: 0.516ms
+Time: 0.565ms
 Solution to part 1: 13978427
 Solution to part 2: 11189491
 
 day6
 ------------------------------
-Time: 84.522ms
+Time: 83.011ms
 Solution to part 1: 300598
 Solution to part 2: 520
 
 day7
 ------------------------------
-Time: 57.084ms
+Time: 84.858ms
 Solution to part 1: 255590
 Solution to part 2: 58285150
 
 day8
 ------------------------------
-Time: 6.722ms
+Time: 7.925ms
 Solution to part 1: 2250
 Solution to part 2:
 # # # #   #     #       # #   #     #   #
@@ -129,7 +129,13 @@ Solution to part 2:
 
 day9
 ------------------------------
-Time: 224.045ms
+Time: 260.332ms
 Solution to part 1: 2399197539
 Solution to part 2: 35106
+
+day10
+------------------------------
+Time: 144.710ms
+Solution to part 1: 214
+Solution to part 2: 502
 ```
