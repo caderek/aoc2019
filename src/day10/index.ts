@@ -1,6 +1,8 @@
 import * as R from "ramda"
 import { test, readInput } from "../utils/index"
 
+type Asteroid = [number, number]
+
 const prepareInput = (rawInput: string) =>
   rawInput
     .split("\n")
@@ -9,16 +11,16 @@ const prepareInput = (rawInput: string) =>
     )
     .filter((x) => x !== null)
 
-const whichHalf = (x) => (x >= 0 ? 0 : 1)
+const whichHalf = (x: number) => (x >= 0 ? 0 : 1)
 
-const getRelativeAsteroids = (X, Y, asteroids) =>
+const getRelativeAsteroids = (X: number, Y: number, asteroids: Asteroid[]) =>
   asteroids
     .filter(([x, y]) => x !== X || y !== Y)
     .map(([x, y]) => [x - X, y - Y])
     .map(([x, y]) => [x, y, y / x, whichHalf(x)])
 
 const goA = (rawInput: string) => {
-  const asteroids = prepareInput(rawInput)
+  const asteroids = prepareInput(rawInput) as Asteroid[]
 
   const visibleByCords = asteroids.map(([X, Y]) => {
     return {
@@ -37,7 +39,7 @@ const goA = (rawInput: string) => {
 }
 
 const goB = (rawInput: string, [X, Y]: number[]) => {
-  const asteroids = prepareInput(rawInput)
+  const asteroids = prepareInput(rawInput) as Asteroid[]
   const relativeAsteroids = getRelativeAsteroids(X, Y, asteroids).sort(
     ([x1, y1, r1, h1], [x2, y2, r2, h2]) => h1 - h2 || r1 - r2,
   )
@@ -53,7 +55,7 @@ const goB = (rawInput: string, [X, Y]: number[]) => {
   })
 
   const groupedValues = [...grouped.values()]
-  const destroyed = []
+  const destroyed: Asteroid[] = []
 
   while (destroyed.length < relativeAsteroids.length) {
     groupedValues.forEach((series) => {
