@@ -26,6 +26,7 @@
     "@types/ramda": "^0.26.37",
     "get-caller-file": "^2.0.5",
     "graphlib": "^2.1.8",
+    "iter-tools": "^6.2.6",
     "kleur": "^3.0.3",
     "lodash": "^4.17.15",
     "ramda": "^0.26.1"

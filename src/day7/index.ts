@@ -1,76 +1,49 @@
-import { test, readInput } from "../utils/index"
 import { last_ } from "@arrows/array"
+import { permutations } from "iter-tools"
+import { test, readInput } from "../utils/index"
 import compute from "./computer"
 
 const prepareInput = (rawInput: string) => rawInput
 
 const input = prepareInput(readInput())
 
-const arePhasesUnique = (phases: number[]) =>
-  new Set(phases).size === phases.length
-
-function* generatePhaseSequences(from: number, to: number) {
-  for (let i = from; i < to; i++) {
-    for (let j = from; j < to; j++) {
-      for (let k = from; k < to; k++) {
-        for (let l = from; l < to; l++) {
-          for (let m = from; m < to; m++) {
-            const phases = [i, j, k, l, m]
-            if (arePhasesUnique(phases)) {
-              yield phases
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
 const goA = async (source: string) => {
-  const phaseSequences = generatePhaseSequences(0, 5)
+  const phaseSequences = permutations([0, 1, 2, 3, 4])
   const thrusterSignals: number[] = []
 
   for (const [a, b, c, d, e] of phaseSequences) {
-    const out1 = []
-    const out2 = []
-    const out3 = []
-    const out4 = []
-    const out5 = []
+    const out = { A: [], B: [], C: [], D: [], E: [] }
 
     await Promise.all([
-      compute(source, [0], out1, [a]),
-      compute(source, out1, out2, [b]),
-      compute(source, out2, out3, [c]),
-      compute(source, out3, out4, [d]),
-      compute(source, out4, out5, [e]),
+      compute(source, [0], out.A, [a]),
+      compute(source, out.A, out.B, [b]),
+      compute(source, out.B, out.C, [c]),
+      compute(source, out.C, out.D, [d]),
+      compute(source, out.D, out.E, [e]),
     ])
 
-    thrusterSignals.push(last_(out5))
+    thrusterSignals.push(last_(out.E))
   }
 
   return Math.max(...thrusterSignals)
 }
 
 const goB = async (source: string) => {
-  const phaseSequences = generatePhaseSequences(5, 10)
+  const phaseSequences = permutations([5, 6, 7, 8, 9])
   const thrusterSignals: number[] = []
 
   for (const [a, b, c, d, e] of phaseSequences) {
-    const out1 = []
-    const out2 = []
-    const out3 = []
-    const out4 = []
-    const out5 = [0]
+    const out = { A: [], B: [], C: [], D: [], E: [0] }
 
     await Promise.all([
-      compute(source, out5, out1, [a]),
-      compute(source, out1, out2, [b]),
-      compute(source, out2, out3, [c]),
-      compute(source, out3, out4, [d]),
-      compute(source, out4, out5, [e]),
+      compute(source, out.E, out.A, [a]),
+      compute(source, out.A, out.B, [b]),
+      compute(source, out.B, out.C, [c]),
+      compute(source, out.C, out.D, [d]),
+      compute(source, out.D, out.E, [e]),
     ])
 
-    thrusterSignals.push(last_(out5))
+    thrusterSignals.push(last_(out.E))
   }
 
   return Math.max(...thrusterSignals)
