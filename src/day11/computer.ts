@@ -31,75 +31,57 @@ enum Modes {
 
 const unblock = () => new Promise(setImmediate)
 
-const calculations: { [key: string]: (a: bigint, b: bigint) => bigint } = {
+const calculations: { [key: string]: (a: number, b: number) => number } = {
   [Ops.ADD]: (a, b) => a + b,
   [Ops.MULTIPLY]: (a, b) => a * b,
-  [Ops.LESS_THAN]: (a, b) => BigInt(a < b),
-  [Ops.EQUALS]: (a, b) => BigInt(a === b),
-}
-
-const getVal = (index, program) => {
-  if (!program.has(index)) {
-    program.set(index, 0n)
-  }
-
-  return program.get(index)
+  [Ops.LESS_THAN]: (a, b) => Number(a < b),
+  [Ops.EQUALS]: (a, b) => Number(a === b),
 }
 
 const getValue = (
-  program: Map<bigint, bigint>,
+  program: number[],
   params: number[],
-  pointer: bigint,
+  pointer: number,
   index: number,
-  relativeBase: bigint,
+  relativeBase: number,
 ) => {
-  return getVal(
+  return program[
     params[index] === Modes.POSITION
-      ? getVal(pointer + BigInt(index) + 1n, program)
+      ? program[pointer + index + 1]
       : params[index] === Modes.IMMEDIATE
-      ? pointer + BigInt(index) + 1n
-      : relativeBase + getVal(pointer + BigInt(index) + 1n, program),
-    program,
-  )
+      ? pointer + index + 1
+      : relativeBase + program[pointer + index + 1]
+  ]
 }
 
 const getWriteIndex = (
-  program: Map<bigint, bigint>,
+  program: number[],
   params: number[],
-  pointer: bigint,
-  relativeBase: bigint,
+  pointer: number,
+  relativeBase: number,
 ) => (index: number) => {
   return params[index] === Modes.RELATIVE
-    ? relativeBase + BigInt(getVal(pointer + BigInt(index) + 1n, program))
-    : getVal(pointer + BigInt(index) + 1n, program)
+    ? relativeBase + program[pointer + index + 1]
+    : program[pointer + index + 1]
 }
 
 const compute = async (
   source: string,
-  inputs: bigint[] = [],
-  outputs: bigint[] = [],
-  phaseSettings: bigint[] = [],
+  inputs: number[] = [],
+  outputs: number[] = [],
+  phaseSettings: number[] = [],
+  freeMemorySize: number = 100,
 ) => {
-  const program = new Map(
-    source
-      .split(",")
-      .map(BigInt)
-      .map((val, i) => [BigInt(i), val]),
-  )
+  const program = source
+    .split(",")
+    .map(Number)
+    .concat(Array.from({ length: freeMemorySize }, () => 0))
 
-  let pointer = 0n
-  let relativeBase = 0n
-
-  const setVal = (index, value) => {
-    if (!program.has(index)) {
-      program.set(index, 0n)
-    }
-
-    program.set(index, value)
-  }
+  let pointer = 0
+  let relativeBase = 0
 
   while (true) {
-    const first = String(getVal(pointer, program)).padStart(5, "0")
+    const first = String(program[pointer]).padStart(5, "0")
 
     const opcode = Number(first.substr(3))
 
@@ -125,14 +107,14 @@ const compute = async (
       case Ops.MULTIPLY:
       case Ops.LESS_THAN:
       case Ops.EQUALS: {
-        setVal(getIndex(2), calculations[opcode](a, b))
+        program[getIndex(2)] = calculations[opcode](a, b)
         break
       }
       case Ops.INPUT: {
         if (phaseSettings.length > 0) {
-          setVal(getIndex(0), phaseSettings.shift())
+          program[getIndex(0)] = phaseSettings.shift()
         } else if (inputs.length > 0) {
-          setVal(getIndex(0), inputs.shift())
+          program[getIndex(0)] = inputs.shift()
         } else {
           await unblock()
           shouldJump = false
@@ -144,13 +126,13 @@ const compute = async (
         break
       }
       case Ops.JUMP_IF_TRUE: {
-        pointer = a !== 0n ? b : pointer
-        shouldJump = a === 0n
+        pointer = a !== 0 ? b : pointer
+        shouldJump = a === 0
         break
       }
       case Ops.JUMP_IF_FALSE: {
-        pointer = a === 0n ? b : pointer
-        shouldJump = a !== 0n
+        pointer = a === 0 ? b : pointer
+        shouldJump = a !== 0
         break
       }
       case Ops.RELATIVE_BASE_OFFSET: {
@@ -160,7 +142,7 @@ const compute = async (
     }
 
     if (shouldJump) {
-      pointer += BigInt(Jumps[Ops[opcode]])
+      pointer += Jumps[Ops[opcode]]
     }
   }
 

@@ -2,7 +2,7 @@ import * as R from "ramda"
 import * as iter from "iter-tools"
 import { arr, com, dis, mul } from "@arrows/arrows"
 import { test, readInput } from "../utils/index"
-import compute, { unblock } from "./computer"
+import compute, { unblock } from "./computer-bigint"
 
 enum Color {
   BLACK,
