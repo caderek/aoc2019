@@ -13,6 +13,8 @@ enum Dir {
   DOWN,
 }
 
+type PanelData = {}
+
 const goA = async (source: string, startValue: bigint) => {
   const inputs = [startValue]
   const outputs = []
@@ -31,12 +33,7 @@ const goA = async (source: string, startValue: bigint) => {
     const color = Number(outputs.shift())
     const turn = Number(outputs.shift())
 
-    panels.set(`${current.x},${current.y}`, {
-      x: current.x,
-      y: current.y,
-      dir: current.dir,
-      color,
-    })
+    panels.set(`${current.x},${current.y}`, { ...current, color })
 
     if (turn === Dir.LEFT) {
       current.dir =
@@ -74,9 +71,8 @@ const goA = async (source: string, startValue: bigint) => {
         ? current.y + 1
         : current.y
 
-    current.color = panels.has(`${current.x},${current.y}`)
-      ? panels.get(`${current.x},${current.y}`).color
-      : Color.BLACK
+    const id = `${current.x},${current.y}`
+    current.color = panels.has(id) ? panels.get(id).color : Color.BLACK
 
     inputs.push(BigInt(current.color))
   }
