@@ -75,49 +75,49 @@ The repo uses this template: [aoc-starter-ts](https://github.com/caderek/aoc-sta
 ```
 day01
 ------------------------------
-Time: 0.282ms
+Time: 0.329ms
 Solution to part 1: 3515171
 Solution to part 2: 5269882
 
 day02
 ------------------------------
-Time: 61.172ms
+Time: 66.601ms
 Solution to part 1: 5290681
 Solution to part 2: 5741
 
 day03
 ------------------------------
-Time: 545.281ms
+Time: 656.594ms
 Solution to part 1: 258
 Solution to part 2: 12304
 
 day04
 ------------------------------
-Time: 222.957ms
+Time: 186.357ms
 Solution to part 1: 511
 Solution to part 2: 316
 
 day05
 ------------------------------
-Time: 0.591ms
+Time: 0.563ms
 Solution to part 1: 13978427
 Solution to part 2: 11189491
 
 day06
 ------------------------------
-Time: 105.201ms
+Time: 108.880ms
 Solution to part 1: 300598
 Solution to part 2: 520
 
 day07
 ------------------------------
-Time: 88.399ms
+Time: 105.367ms
 Solution to part 1: 255590
 Solution to part 2: 58285150
 
 day08
 ------------------------------
-Time: 14.518ms
+Time: 10.189ms
 Solution to part 1: 2250
 Solution to part 2:
 # # # #   #     #       # #   #     #   #
@@ -129,19 +129,19 @@ Solution to part 2:
 
 day09
 ------------------------------
-Time: 293.578ms
+Time: 350.225ms
 Solution to part 1: 2399197539
 Solution to part 2: 35106
 
 day10
 ------------------------------
-Time: 123.542ms
+Time: 166.930ms
 Solution to part 1: 214
 Solution to part 2: 502
 
 day11
 ------------------------------
-Time: 451.903ms
+Time: 350.371ms
 Solution to part 1: 1967
 Solution to part 2:
  #  # ###  #  # ####  ##  #### ###  #  #
