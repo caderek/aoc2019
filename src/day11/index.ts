@@ -91,7 +91,7 @@ const goB = async (panelsData: Promise<PanelData[]>) => {
   const w = Math.max(...data.map(({ x }) => x)) + 1
   const h = Math.max(...data.map(({ y }) => y)) + 1
 
-  const grid = Array.from({ length: h }).map(() =>
+  const grid = Array.from({ length: h }, () =>
     Array.from({ length: w }, () => " "),
   )
 
