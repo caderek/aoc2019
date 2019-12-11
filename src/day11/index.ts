@@ -1,8 +1,5 @@
-import * as R from "ramda"
-import * as iter from "iter-tools"
-import { arr, com, dis, mul } from "@arrows/arrows"
-import { test, readInput } from "../utils/index"
-import compute, { unblock } from "./computer-bigint"
+import { readInput } from "../utils/index"
+import compute, { unblock } from "./computer"
 
 enum Color {
   BLACK,
