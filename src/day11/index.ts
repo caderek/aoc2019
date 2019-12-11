@@ -13,7 +13,12 @@ enum Dir {
   DOWN,
 }
 
-type PanelData = {}
+type PanelData = {
+  x: number
+  y: number
+  dir: Dir
+  color: Color
+}
 
 const goA = async (source: string, startValue: bigint) => {
   const inputs = [startValue]
@@ -80,7 +85,7 @@ const goA = async (source: string, startValue: bigint) => {
   return [...panels.values()]
 }
 
-const goB = async (panelsData: Promise<any[]>) => {
+const goB = async (panelsData: Promise<PanelData[]>) => {
   const data = await panelsData
 
   const w = Math.max(...data.map(({ x }) => x)) + 1
