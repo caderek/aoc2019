@@ -43,16 +43,13 @@ const calculations: { [key: string]: (a: bigint, b: bigint) => bigint } = {
 const getCell = (index: bigint, program: Program) => {
   if (!program.has(index)) {
     program.set(index, 0n)
+    return 0n
   }
 
   return program.get(index)
 }
 
 const setCell = (index: bigint, value: bigint, program: Program) => {
-  if (!program.has(index)) {
-    program.set(index, 0n)
-  }
-
   program.set(index, value)
 }
 
