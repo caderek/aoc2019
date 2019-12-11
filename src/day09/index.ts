@@ -29,10 +29,8 @@ const main = async () => {
   const [resultB] = await compute(input, [2])
   console.timeEnd("Time")
 
-  console.log("Solution to part 1:")
-  console.log(resultA) // -> 2399197539
-  console.log("Solution to part 2:")
-  console.log(resultB) // -> 35106
+  console.log("Solution to part 1:", resultA) // -> 2399197539
+  console.log("Solution to part 2:", resultB) // -> 35106
 }
 
 main()

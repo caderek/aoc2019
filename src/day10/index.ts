@@ -195,7 +195,5 @@ const resultA = goA(input)
 const resultB = goB(input, resultA.cords)
 console.timeEnd("Time")
 
-console.log("Solution to part 1:")
-console.log(resultA.max) // -> 214
-console.log("Solution to part 2:")
-console.log(resultB) // -> 502
+console.log("Solution to part 1:", resultA.max) // -> 214
+console.log("Solution to part 2:", resultB) // -> 502

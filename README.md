@@ -12,7 +12,7 @@
 ![Day](https://badgen.net/badge/08/%E2%98%85%E2%98%85/blue)
 ![Day](https://badgen.net/badge/09/%E2%98%85%E2%98%85/blue)
 ![Day](https://badgen.net/badge/10/%E2%98%85%E2%98%85/blue)
-![Day](https://badgen.net/badge/11/%E2%98%86%E2%98%86/grey)
+![Day](https://badgen.net/badge/11/%E2%98%85%E2%98%85/blue)
 ![Day](https://badgen.net/badge/12/%E2%98%86%E2%98%86/grey)
 ![Day](https://badgen.net/badge/13/%E2%98%86%E2%98%86/grey)
 ![Day](https://badgen.net/badge/14/%E2%98%86%E2%98%86/grey)
@@ -75,49 +75,49 @@ The repo uses this template: [aoc-starter-ts](https://github.com/caderek/aoc-sta
 ```
 day01
 ------------------------------
-Time: 0.258ms
+Time: 0.333ms
 Solution to part 1: 3515171
 Solution to part 2: 5269882
 
 day02
 ------------------------------
-Time: 59.799ms
+Time: 190.441ms
 Solution to part 1: 5290681
 Solution to part 2: 5741
 
 day03
 ------------------------------
-Time: 465.598ms
+Time: 864.438ms
 Solution to part 1: 258
 Solution to part 2: 12304
 
 day04
 ------------------------------
-Time: 181.741ms
+Time: 287.699ms
 Solution to part 1: 511
 Solution to part 2: 316
 
 day05
 ------------------------------
-Time: 0.565ms
+Time: 1.216ms
 Solution to part 1: 13978427
 Solution to part 2: 11189491
 
 day06
 ------------------------------
-Time: 83.011ms
+Time: 143.112ms
 Solution to part 1: 300598
 Solution to part 2: 520
 
 day07
 ------------------------------
-Time: 84.858ms
+Time: 139.031ms
 Solution to part 1: 255590
 Solution to part 2: 58285150
 
 day08
 ------------------------------
-Time: 7.925ms
+Time: 23.947ms
 Solution to part 1: 2250
 Solution to part 2:
 # # # #   #     #       # #   #     #   #
@@ -129,13 +129,25 @@ Solution to part 2:
 
 day09
 ------------------------------
-Time: 260.332ms
+Time: 523.539ms
 Solution to part 1: 2399197539
 Solution to part 2: 35106
 
 day10
 ------------------------------
-Time: 144.710ms
+Time: 163.837ms
 Solution to part 1: 214
 Solution to part 2: 502
+
+day11
+------------------------------
+Time: 682.920ms
+Solution to part 1: 1967
+Solution to part 2:
+ #  # ###  #  # ####  ##  #### ###  #  #
+ # #  #  # #  # #    #  #    # #  # # #
+ ##   ###  #  # ###  #      #  ###  ##
+ # #  #  # #  # #    # ##  #   #  # # #
+ # #  #  # #  # #    #  # #    #  # # #
+ #  # ###   ##  ####  ### #### ###  #  #
 ```
