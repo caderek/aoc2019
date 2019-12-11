@@ -91,15 +91,17 @@ const goB = async (panelsData: Promise<PanelData[]>) => {
   const w = Math.max(...data.map(({ x }) => x)) + 1
   const h = Math.max(...data.map(({ y }) => y)) + 1
 
-  const grid = Array.from({ length: h }, () =>
+  const emptyGrid = Array.from({ length: h }, () =>
     Array.from({ length: w }, () => " "),
   )
 
-  data.forEach(({ x, y, color }) => {
-    grid[y][x] = color === Color.BLACK ? " " : "#"
-  })
-
-  return grid.map((row) => row.join("")).join("\n")
+  return data
+    .reduce((grid, { x, y, color }) => {
+      grid[y][x] = color === Color.BLACK ? " " : "#"
+      return grid
+    }, emptyGrid)
+    .map((row) => row.join(""))
+    .join("\n")
 }
 
 const main = async () => {
