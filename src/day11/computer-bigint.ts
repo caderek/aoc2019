@@ -29,43 +29,43 @@ enum Modes {
   RELATIVE,
 }
 
-type Program = number[]
+type Program = Map<bigint, bigint>
 
 const unblock = () => new Promise(setImmediate)
 
-const calculations: { [key: string]: (a: number, b: number) => number } = {
+const calculations: { [key: string]: (a: bigint, b: bigint) => bigint } = {
   [Ops.ADD]: (a, b) => a + b,
   [Ops.MULTIPLY]: (a, b) => a * b,
-  [Ops.LESS_THAN]: (a, b) => Number(a < b),
-  [Ops.EQUALS]: (a, b) => Number(a === b),
+  [Ops.LESS_THAN]: (a, b) => BigInt(a < b),
+  [Ops.EQUALS]: (a, b) => BigInt(a === b),
 }
 
-const getCell = (index: number, program: Program) => {
-  if (!program[index]) {
-    program[index] = 0
-    return 0
+const getCell = (index: bigint, program: Program) => {
+  if (!program.has(index)) {
+    program.set(index, 0n)
+    return 0n
   }
 
-  return program[index]
+  return program.get(index)
 }
 
-const setCell = (index: number, value: number, program: Program) => {
-  program[index] = value
+const setCell = (index: bigint, value: bigint, program: Program) => {
+  program.set(index, value)
 }
 
 const getValue = (
   program: Program,
   params: number[],
-  pointer: number,
+  pointer: bigint,
   index: number,
-  relativeBase: number,
-): number => {
+  relativeBase: bigint,
+): bigint => {
   return getCell(
     params[index] === Modes.POSITION
-      ? getCell(pointer + index + 1, program)
+      ? getCell(pointer + BigInt(index) + 1n, program)
       : params[index] === Modes.IMMEDIATE
-      ? pointer + index + 1
-      : relativeBase + getCell(pointer + index + 1, program),
+      ? pointer + BigInt(index) + 1n
+      : relativeBase + getCell(pointer + BigInt(index) + 1n, program),
     program,
   )
 }
@@ -73,24 +73,29 @@ const getValue = (
 const getWriteIndex = (
   program: Program,
   params: number[],
-  pointer: number,
-  relativeBase: number,
+  pointer: bigint,
+  relativeBase: bigint,
 ) => (index: number) => {
   return params[index] === Modes.RELATIVE
-    ? relativeBase + getCell(pointer + index + 1, program)
-    : getCell(pointer + index + 1, program)
+    ? relativeBase + BigInt(getCell(pointer + BigInt(index) + 1n, program))
+    : getCell(pointer + BigInt(index) + 1n, program)
 }
 
 const compute = async (
   source: string,
-  inputs: number[] = [],
-  outputs: number[] = [],
-  phaseSettings: number[] = [],
+  inputs: bigint[] = [],
+  outputs: bigint[] = [],
+  phaseSettings: bigint[] = [],
 ) => {
-  const program = source.split(",").map(Number)
+  const program = new Map(
+    source
+      .split(",")
+      .map(BigInt)
+      .map((val, i) => [BigInt(i), val]),
+  )
 
-  let pointer = 0
-  let relativeBase = 0
+  let pointer = 0n
+  let relativeBase = 0n
 
   while (true) {
     const first = String(getCell(pointer, program)).padStart(5, "0")
@@ -109,8 +114,8 @@ const compute = async (
 
     let shouldJump = true
 
-    const a: number = getValue(program, params, pointer, 0, relativeBase)
-    const b: number = getValue(program, params, pointer, 1, relativeBase)
+    const a: bigint = getValue(program, params, pointer, 0, relativeBase)
+    const b: bigint = getValue(program, params, pointer, 1, relativeBase)
 
     const getIndex = getWriteIndex(program, params, pointer, relativeBase)
 
@@ -138,13 +143,13 @@ const compute = async (
         break
       }
       case Ops.JUMP_IF_TRUE: {
-        pointer = a !== 0 ? b : pointer
-        shouldJump = a === 0
+        pointer = a !== 0n ? b : pointer
+        shouldJump = a === 0n
         break
       }
       case Ops.JUMP_IF_FALSE: {
-        pointer = a === 0 ? b : pointer
-        shouldJump = a !== 0
+        pointer = a === 0n ? b : pointer
+        shouldJump = a !== 0n
         break
       }
       case Ops.RELATIVE_BASE_OFFSET: {
@@ -154,7 +159,7 @@ const compute = async (
     }
 
     if (shouldJump) {
-      pointer += Jumps[Ops[opcode]]
+      pointer += BigInt(Jumps[Ops[opcode]])
     }
   }
 

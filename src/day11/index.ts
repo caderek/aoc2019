@@ -20,7 +20,7 @@ type PanelData = {
   color: Color
 }
 
-const goA = async (source: string, startValue: bigint) => {
+const goA = async (source: string, startValue: number) => {
   const inputs = [startValue]
   const outputs = []
   let done = false
@@ -79,7 +79,7 @@ const goA = async (source: string, startValue: bigint) => {
     const id = `${current.x},${current.y}`
     current.color = panels.has(id) ? panels.get(id).color : Color.BLACK
 
-    inputs.push(BigInt(current.color))
+    inputs.push(current.color)
   }
 
   return [...panels.values()]
@@ -110,8 +110,8 @@ const main = async () => {
   const input = readInput()
 
   console.time("Time")
-  const resultA = await goA(input, 0n)
-  const resultB = await goB(goA(input, 1n))
+  const resultA = await goA(input, 0)
+  const resultB = await goB(goA(input, 1))
   console.timeEnd("Time")
 
   console.log("Solution to part 1:", resultA.length) // -> 1967
