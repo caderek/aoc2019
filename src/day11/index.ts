@@ -28,7 +28,7 @@ const goA = async (source: string, startValue: number) => {
   compute(source, inputs, outputs).then(() => (done = true))
 
   const panels = new Map()
-  const current = { x: 0, y: 0, dir: Dir.UP, color: Color.BLACK }
+  const curr = { x: 0, y: 0, dir: Dir.UP, color: Color.BLACK }
 
   while (!done) {
     if (outputs.length === 0) {
@@ -38,48 +38,37 @@ const goA = async (source: string, startValue: number) => {
     const color = Number(outputs.shift())
     const turn = Number(outputs.shift())
 
-    panels.set(`${current.x},${current.y}`, { ...current, color })
+    panels.set(`${curr.x},${curr.y}`, { ...curr, color })
 
     if (turn === Dir.LEFT) {
-      current.dir =
-        current.dir === Dir.UP
+      curr.dir =
+        curr.dir === Dir.UP
           ? Dir.LEFT
-          : current.dir === Dir.LEFT
+          : curr.dir === Dir.LEFT
           ? Dir.DOWN
-          : current.dir === Dir.DOWN
+          : curr.dir === Dir.DOWN
           ? Dir.RIGHT
           : Dir.UP
     }
 
     if (turn === Dir.RIGHT) {
-      current.dir =
-        current.dir === Dir.UP
+      curr.dir =
+        curr.dir === Dir.UP
           ? Dir.RIGHT
-          : current.dir === Dir.RIGHT
+          : curr.dir === Dir.RIGHT
           ? Dir.DOWN
-          : current.dir === Dir.DOWN
+          : curr.dir === Dir.DOWN
           ? Dir.LEFT
           : Dir.UP
     }
 
-    current.x =
-      current.dir === Dir.LEFT
-        ? current.x - 1
-        : current.dir === Dir.RIGHT
-        ? current.x + 1
-        : current.x
+    curr.x += curr.dir === Dir.LEFT ? -1 : curr.dir === Dir.RIGHT ? 1 : 0
+    curr.y += curr.dir === Dir.UP ? -1 : curr.dir === Dir.DOWN ? 1 : 0
 
-    current.y =
-      current.dir === Dir.UP
-        ? current.y - 1
-        : current.dir === Dir.DOWN
-        ? current.y + 1
-        : current.y
+    const id = `${curr.x},${curr.y}`
+    curr.color = panels.has(id) ? panels.get(id).color : Color.BLACK
 
-    const id = `${current.x},${current.y}`
-    current.color = panels.has(id) ? panels.get(id).color : Color.BLACK
-
-    inputs.push(current.color)
+    inputs.push(curr.color)
   }
 
   return [...panels.values()]
