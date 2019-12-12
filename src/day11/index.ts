@@ -28,7 +28,7 @@ const goA = async (source: string, startValue: number) => {
   compute(source, inputs, outputs).then(() => (done = true))
 
   const panels = new Map()
-  const curr = { x: 0, y: 0, dir: Dir.UP, color: Color.BLACK }
+  const now = { x: 0, y: 0, dir: Dir.UP, color: Color.BLACK }
 
   while (!done) {
     if (outputs.length === 0) {
@@ -38,37 +38,37 @@ const goA = async (source: string, startValue: number) => {
     const color = Number(outputs.shift())
     const turn = Number(outputs.shift())
 
-    panels.set(`${curr.x},${curr.y}`, { ...curr, color })
+    panels.set(`${now.x},${now.y}`, { ...now, color })
 
     if (turn === Dir.LEFT) {
-      curr.dir =
-        curr.dir === Dir.UP
+      now.dir =
+        now.dir === Dir.UP
           ? Dir.LEFT
-          : curr.dir === Dir.LEFT
+          : now.dir === Dir.LEFT
           ? Dir.DOWN
-          : curr.dir === Dir.DOWN
+          : now.dir === Dir.DOWN
           ? Dir.RIGHT
           : Dir.UP
     }
 
     if (turn === Dir.RIGHT) {
-      curr.dir =
-        curr.dir === Dir.UP
+      now.dir =
+        now.dir === Dir.UP
           ? Dir.RIGHT
-          : curr.dir === Dir.RIGHT
+          : now.dir === Dir.RIGHT
           ? Dir.DOWN
-          : curr.dir === Dir.DOWN
+          : now.dir === Dir.DOWN
           ? Dir.LEFT
           : Dir.UP
     }
 
-    curr.x += curr.dir === Dir.LEFT ? -1 : curr.dir === Dir.RIGHT ? 1 : 0
-    curr.y += curr.dir === Dir.UP ? -1 : curr.dir === Dir.DOWN ? 1 : 0
+    now.x += now.dir === Dir.LEFT ? -1 : now.dir === Dir.RIGHT ? 1 : 0
+    now.y += now.dir === Dir.UP ? -1 : now.dir === Dir.DOWN ? 1 : 0
 
-    const id = `${curr.x},${curr.y}`
-    curr.color = panels.has(id) ? panels.get(id).color : Color.BLACK
+    const id = `${now.x},${now.y}`
+    now.color = panels.has(id) ? panels.get(id).color : Color.BLACK
 
-    inputs.push(curr.color)
+    inputs.push(now.color)
   }
 
   return [...panels.values()]
