@@ -1,9 +1,5 @@
-import * as R from "ramda"
-import * as iter from "iter-tools"
-import { arr, com, dis, mul } from "@arrows/arrows"
-import * as cloneDeep from "clone-deep"
-import { test, readInput } from "../utils/index"
 import * as math from "mathjs"
+import { test, readInput } from "../utils/index"
 
 type Coord = number
 type Velocity = number
@@ -55,27 +51,25 @@ const calcStep = (axis: Axis) => {
     [2, 3],
   ]
 
-  const nextAxis: Axis = cloneDeep(axis)
-
   for (const [a, b] of combinations) {
-    const diff = getDiff(nextAxis, a, b)
+    const diff = getDiff(axis, a, b)
 
-    nextAxis[a][1] += diff
-    nextAxis[b][1] += -diff
+    axis[a][1] += diff
+    axis[b][1] += -diff
   }
 
-  nextAxis.forEach((_, index) => {
-    nextAxis[index][0] += nextAxis[index][1]
+  axis.forEach((_, index) => {
+    axis[index][0] += axis[index][1]
   })
 
-  return nextAxis
+  return axis
 }
 
 const goA = (rawInput: string, stepsNum: number) => {
   const axes = prepareInput(rawInput)
   const lastStep = []
 
-  axes.forEach((axis, i) => {
+  axes.forEach((axis) => {
     let previousStep = axis
 
     for (let i = 1; i <= stepsNum; i++) {
@@ -157,19 +151,3 @@ console.timeEnd("Time")
 
 console.log("Solution to part 1:", resultA) // -> 14809
 console.log("Solution to part 2:", resultB) // -> 282270365571288
-
-// function gcd(x, y) {
-//   x = Math.abs(x)
-//   y = Math.abs(y)
-//   while (y) {
-//     var t = y
-//     y = x % y
-//     x = t
-//   }
-//   return x
-// }
-
-// function lcm(x, y) {
-//   if (typeof x !== "number" || typeof y !== "number") return false
-//   return !x || !y ? 0 : Math.abs((x * y) / gcd(x, y))
-// }

@@ -153,7 +153,7 @@ Solution to part 2:
 
 day12
 ------------------------------
-Time: 1473.012ms
+Time: 957.525ms
 Solution to part 1: 14809
 Solution to part 2: 282270365571288
 ```
