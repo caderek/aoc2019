@@ -1,7 +1,15 @@
-import * as R from "ramda"
-import * as iter from "iter-tools"
-import { arr, com, dis, mul } from "@arrows/arrows"
-import { test, readInput } from "../utils/index"
+import {
+  test,
+  readInput,
+  arr,
+  com,
+  mul,
+  dis,
+  math,
+  iter,
+  R,
+  graph,
+} from "../utils/index"
 
 const prepareInput = (rawInput: string) => rawInput
 
