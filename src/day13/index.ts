@@ -5,11 +5,14 @@ import compute, { unblock } from "./computer"
 
 type State = [number, number, number][]
 
+const randomColor = () =>
+  ["magenta", "green", "cyan", "blue"][Math.floor(Math.random() * 4)]
+
 const tiles = {
   0: " ",
-  1: kleur.blue("H"),
-  2: kleur.green("#"),
-  3: kleur.red("–"),
+  1: kleur.gray("H"),
+  2: () => kleur[randomColor()]("#"),
+  3: kleur.red().bold("–"),
   4: kleur.yellow("●"),
 }
 
@@ -26,7 +29,7 @@ const renderer = (grid = null) => async (state: State, score = 0) => {
   grid = board
 
   state.forEach(([x, y, id]) => {
-    board[y][x] = tiles[id]
+    board[y][x] = id === 2 ? tiles[id]() : tiles[id]
   })
 
   const screen = board.map((row) => row.join("")).join("\n")
@@ -77,7 +80,7 @@ const goB = async (source: string) => {
     score = currentScore ? currentScore[2] : score
 
     /* Uncomment the next line to draw the board */
-    // await draw(state, score)
+    await draw(state, score)
 
     const move = paddleX < ballX ? 1 : paddleX > ballX ? -1 : 0
     paddleX += move
