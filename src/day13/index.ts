@@ -34,8 +34,8 @@ const goB = async (source: string) => {
     const state = arr.chunk_(3, out)
 
     const currentScore = state.find(([x, y]) => x === -1 && y === 0)
-    const paddle = state.find(([x, y, tile]) => tile === 3)
-    const ball = state.find(([x, y, tile]) => tile === 4)
+    const paddle = state.find((tile) => tile[2] === 3)
+    const ball = state.find((tile) => tile[2] === 4)
 
     ballX = ball ? ball[0] : ballX
     paddleX = paddle ? paddle[0] : paddleX
