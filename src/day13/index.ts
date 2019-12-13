@@ -38,7 +38,7 @@ const goA = async (source: string) => {
   const game = await compute(source)
   const state = arr.chunk_(3, game) as State
 
-  /* Uncomment next line to draw the board */
+  /* Uncomment the next line to draw the board */
   // await renderer()(state)
 
   return state.filter((tile) => tile[2] === 2).length
@@ -76,7 +76,7 @@ const goB = async (source: string) => {
     paddleX = paddle ? paddle[0] : paddleX
     score = currentScore ? currentScore[2] : score
 
-    /* Uncomment next line to draw the board */
+    /* Uncomment the next line to draw the board */
     // await draw(state, score)
 
     const move = paddleX < ballX ? 1 : paddleX > ballX ? -1 : 0
