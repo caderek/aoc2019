@@ -9,6 +9,7 @@
   "devDependencies": {
     "@types/graphlib": "^2.1.5",
     "@types/lodash": "^4.14.149",
+    "@types/mathjs": "^6.0.2",
     "@types/node": "^12.12.14",
     "core-js": "^3.4.5",
     "nodemon": "^2.0.1",
@@ -24,11 +25,13 @@
     "@arrows/multimethod": "^1.1.6",
     "@arrows/worker": "^1.2.0",
     "@types/ramda": "^0.26.37",
+    "clone-deep": "^4.0.1",
     "get-caller-file": "^2.0.5",
     "graphlib": "^2.1.8",
     "iter-tools": "^6.2.6",
     "kleur": "^3.0.3",
     "lodash": "^4.17.15",
+    "mathjs": "^6.2.5",
     "ramda": "^0.26.1"
   }
 }

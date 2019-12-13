@@ -13,7 +13,7 @@
 ![Day](https://badgen.net/badge/09/%E2%98%85%E2%98%85/blue)
 ![Day](https://badgen.net/badge/10/%E2%98%85%E2%98%85/blue)
 ![Day](https://badgen.net/badge/11/%E2%98%85%E2%98%85/blue)
-![Day](https://badgen.net/badge/12/%E2%98%86%E2%98%86/grey)
+![Day](https://badgen.net/badge/12/%E2%98%85%E2%98%85/blue)
 ![Day](https://badgen.net/badge/13/%E2%98%86%E2%98%86/grey)
 ![Day](https://badgen.net/badge/14/%E2%98%86%E2%98%86/grey)
 ![Day](https://badgen.net/badge/15/%E2%98%86%E2%98%86/grey)
@@ -75,49 +75,49 @@ The repo uses this template: [aoc-starter-ts](https://github.com/caderek/aoc-sta
 ```
 day01
 ------------------------------
-Time: 0.329ms
+Time: 0.452ms
 Solution to part 1: 3515171
 Solution to part 2: 5269882
 
 day02
 ------------------------------
-Time: 66.601ms
+Time: 60.343ms
 Solution to part 1: 5290681
 Solution to part 2: 5741
 
 day03
 ------------------------------
-Time: 656.594ms
+Time: 499.312ms
 Solution to part 1: 258
 Solution to part 2: 12304
 
 day04
 ------------------------------
-Time: 186.357ms
+Time: 207.727ms
 Solution to part 1: 511
 Solution to part 2: 316
 
 day05
 ------------------------------
-Time: 0.563ms
+Time: 0.657ms
 Solution to part 1: 13978427
 Solution to part 2: 11189491
 
 day06
 ------------------------------
-Time: 108.880ms
+Time: 111.282ms
 Solution to part 1: 300598
 Solution to part 2: 520
 
 day07
 ------------------------------
-Time: 105.367ms
+Time: 98.104ms
 Solution to part 1: 255590
 Solution to part 2: 58285150
 
 day08
 ------------------------------
-Time: 10.189ms
+Time: 9.203ms
 Solution to part 1: 2250
 Solution to part 2:
 # # # #   #     #       # #   #     #   #
@@ -129,19 +129,19 @@ Solution to part 2:
 
 day09
 ------------------------------
-Time: 350.225ms
+Time: 330.627ms
 Solution to part 1: 2399197539
 Solution to part 2: 35106
 
 day10
 ------------------------------
-Time: 166.930ms
+Time: 141.353ms
 Solution to part 1: 214
 Solution to part 2: 502
 
 day11
 ------------------------------
-Time: 350.371ms
+Time: 311.426ms
 Solution to part 1: 1967
 Solution to part 2:
  #  # ###  #  # ####  ##  #### ###  #  #
@@ -150,4 +150,10 @@ Solution to part 2:
  # #  #  # #  # #    # ##  #   #  # # #
  # #  #  # #  # #    #  # #    #  # # #
  #  # ###   ##  ####  ### #### ###  #  #
+
+day12
+------------------------------
+Time: 1473.012ms
+Solution to part 1: 14809
+Solution to part 2: 282270365571288
 ```
