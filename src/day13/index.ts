@@ -13,7 +13,7 @@ const tiles = {
   4: kleur.yellow("●"),
 }
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const renderer = (grid = null) => async (state: State, score = 0) => {
   const w = Math.max(...state.map((tile) => tile[0])) + 1
