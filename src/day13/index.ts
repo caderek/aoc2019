@@ -31,7 +31,7 @@ const goB = async (source: string) => {
       out.push(outputs.shift())
     }
 
-    const state = arr.chunk_(3, out)
+    const state = arr.chunk_(3, out) as State
 
     const currentScore = state.find(([x, y]) => x === -1 && y === 0)
     const paddle = state.find((tile) => tile[2] === 3)
