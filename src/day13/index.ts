@@ -77,7 +77,7 @@ const goB = async (source: string) => {
     score = currentScore ? currentScore[2] : score
 
     /* Uncomment next line to draw the board */
-    await draw(state, score)
+    // await draw(state, score)
 
     const move = paddleX < ballX ? 1 : paddleX > ballX ? -1 : 0
     paddleX += move
