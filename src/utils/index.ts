@@ -7,5 +7,7 @@ import * as iter from "iter-tools"
 import * as R from "ramda"
 import * as graph from "graphlib"
 
-export { test, readInput, arr, com, mul, dis, math, iter, R, graph }
+const log = (data) => console.dir(data, { colors: true, depth: 99 })
+
+export { test, readInput, arr, com, mul, dis, math, iter, R, graph, log }
 export default { test, readInput }
