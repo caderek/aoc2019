@@ -162,4 +162,10 @@ day13
 Time: 1257.796ms
 Solution to part 1: 432
 Solution to part 2: 22225
+
+day14
+------------------------------
+Time: 19.500ms
+Solution to part 1: 751038
+Solution to part 2: 2074843
 ```

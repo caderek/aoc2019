@@ -77,41 +77,57 @@ const calcOre = (items, depths, maxDepth) => {
   return fuel.substrates.flat()[1]
 }
 
+const prepareAlteredInput = (input, fuelSubstrates) => (units) => {
+  input.FUEL.substrates = fuelSubstrates.map(([name, amount]) => [
+    name,
+    amount * units,
+  ])
+}
+
 const goA = (rawInput: string) => {
   const input = prepareInput(rawInput)
   const [depths, maxDepth] = calcDepths(input)
-  const result = calcOre(input, depths, maxDepth)
 
-  return result
+  return calcOre(input, depths, maxDepth)
 }
 
 const goB = (rawInput: string) => {
   const input = prepareInput(rawInput)
-  const fuelSubtracts = JSON.parse(JSON.stringify(input.FUEL.substrates))
+  const fuelSubstrates = JSON.parse(JSON.stringify(input.FUEL.substrates))
   const [depths, maxDepth] = calcDepths(input)
+
+  const attempt = prepareAlteredInput(input, fuelSubstrates)
 
   let target = 1000000000000
 
   const perUnit = calcOre(input, depths, maxDepth)
 
-  let units = Math.floor(target / perUnit)
+  let min = Math.floor(target / perUnit)
+  let max = 2 * min
 
   while (true) {
-    input.FUEL.substrates = fuelSubtracts.map(([name, amount]) => [
-      name,
-      amount * units,
-    ])
+    let units = Math.round((min + max) / 2)
 
-    const result = calcOre(input, depths, maxDepth)
+    attempt(units)
+    const totalOre = calcOre(input, depths, maxDepth)
 
-    if (target - result > 0) {
-      units++
+    if (totalOre === target) {
+      return units
+    }
+
+    attempt(units + 1)
+    const totalOrePlus = calcOre(input, depths, maxDepth)
+
+    if (totalOre < target && totalOrePlus > target) {
+      return units
+    }
+
+    if (totalOre < target) {
+      min = units
     } else {
-      break
+      max = units
     }
   }
-
-  return units - 1
 }
 
 /* Tests */
