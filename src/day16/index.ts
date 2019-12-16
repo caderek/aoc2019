@@ -1,17 +1,4 @@
-import {
-  test,
-  readInput,
-  arr,
-  com,
-  mul,
-  dis,
-  math,
-  iter,
-  R,
-  graph,
-  log,
-} from "../utils/index"
-import { flat } from "iter-tools"
+import { test, readInput, R } from "../utils/index"
 
 const prepareInput = (rawInput: string) => rawInput.split("").map(Number)
 
