@@ -1,6 +1,6 @@
 import { readInput, graph } from "../utils/index"
 import compute, { unblock } from "./computer"
-import { draw, drawPaths, Waypoint } from "./render"
+import { draw, drawPaths, Waypoint } from "./renderer"
 
 enum Command {
   NORTH = 1,
