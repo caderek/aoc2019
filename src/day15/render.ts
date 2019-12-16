@@ -1,12 +1,31 @@
 import logUpdate from "log-update"
 import * as kleur from "kleur"
+import { graph, arr } from "../utils/index"
 
-const randomColor = () => ["cyan", "blue"][Math.floor(Math.random() * 2)]
+enum RenderOnlyStatus {
+  DROID_PATH = 3,
+  OXYGEN_PATH,
+  OXYGEN_END,
+}
+
+type X = number
+type Y = number
+type Tag = string
+type DroidStatuses = 1 | 2 | 2
+type AdditionalStatuses = 3 | 4 | 5
+type Id = DroidStatuses | AdditionalStatuses
+
+export type Waypoint = [X, Y, Tag, Id]
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const tiles = {
-  0: () => kleur[randomColor()]("\u2588\u2588"),
-  1: kleur.blue("  "),
+  0: kleur.gray("\u2588\u2588"),
+  1: "  ",
   2: kleur.yellow("\u2588\u2588"),
+  3: kleur.yellow().dim("\u2588\u2588"),
+  4: kleur.cyan().dim("\u2588\u2588"),
+  5: kleur.white("\u2588\u2588"),
 }
 
 const draw = (data, droid) => {
@@ -28,12 +47,9 @@ const draw = (data, droid) => {
     for (let col = 0; col < maxWidth; col++) {
       if (grid[row][col] === undefined) {
         grid[row][col] =
-          droid[0] === 0 && droid[1] === 0 ? tiles[0]() : kleur.gray("? ")
+          droid[0] === 0 && droid[1] === 0 ? tiles[0] : kleur.gray("?¿")
       } else {
-        grid[row][col] =
-          typeof tiles[grid[row][col]] === "function"
-            ? tiles[grid[row][col]]()
-            : tiles[grid[row][col]]
+        grid[row][col] = tiles[grid[row][col]]
       }
     }
   }
@@ -45,4 +61,43 @@ const draw = (data, droid) => {
   logUpdate(`\n${render}\n`)
 }
 
-export { draw }
+const drawPaths = async (
+  g: graph.Graph,
+  target: string,
+  map: Map<string, number[]>,
+) => {
+  let temp = target
+
+  while (true) {
+    const pred = g.predecessors(temp)
+    if (pred[0] === "0,0") {
+      break
+    }
+    temp = pred[0]
+    map.set(temp, [...temp.split(",").map(Number), 3])
+    draw([...map.values()], [0, 0])
+    await delay(20)
+  }
+
+  const o2paths = graph.alg.dijkstra(g, target, null, g.nodeEdges.bind(g))
+  const byMinutes = Object.values(
+    arr.groupBy_(
+      (x) => String(x.distance),
+      Object.entries(o2paths).map(([id, { distance }]) => ({ id, distance })),
+    ),
+  ).slice(1)
+
+  for (const points of byMinutes) {
+    for (const { id } of points) {
+      map.set(id, [...id.split(",").map(Number), 4])
+    }
+    draw([...map.values()], [0, 0])
+    await delay(20)
+  }
+
+  const last = arr.last_(byMinutes)[0]
+  map.set(last.id, [...last.id.split(",").map(Number), 5])
+  draw([...map.values()], [0, 0])
+}
+
+export { draw, drawPaths }

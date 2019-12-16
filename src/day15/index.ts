@@ -1,6 +1,6 @@
 import { readInput, graph } from "../utils/index"
 import compute, { unblock } from "./computer"
-import { draw } from "./render"
+import { draw, drawPaths, Waypoint } from "./render"
 
 enum Command {
   NORTH = 1,
@@ -117,19 +117,16 @@ const goA = async (source: string) => {
     currentCommand = walk(status, currentCommand)
   } while (true)
 
-  const paths = [...map.values()]
+  /* Path finding */
+
+  const waypoints = [...map.values()]
     .filter(([_, __, id]) => id !== 0)
-    .map(([x, y, id]) => [x, y, `${x},${y}`, id]) as [
-    number,
-    number,
-    string,
-    number,
-  ][]
+    .map(([x, y, id]) => [x, y, `${x},${y}`, id]) as Waypoint[]
 
   const g = new graph.Graph()
 
-  paths.forEach(([x1, y1, tag1], i) => {
-    const next = paths[i + 1]
+  waypoints.forEach(([x1, y1, tag1], i) => {
+    const next = waypoints[i + 1]
 
     if (next === undefined) {
       return
@@ -137,25 +134,28 @@ const goA = async (source: string) => {
 
     const [x2, y2, tag2] = next
 
-    if (areNeighbors(x1, x2, y1, y2)) {
-      g.setEdge(tag1, tag2)
-    } else {
-      const [_, __, tag3] = paths.find(([x, y]) => areNeighbors(x, x2, y, y2))
-      g.setEdge(tag3, tag2)
-    }
+    const parentTag = areNeighbors(x1, x2, y1, y2)
+      ? tag1
+      : waypoints.find(([x, y]) => areNeighbors(x, x2, y, y2))[2]
+
+    g.setEdge(parentTag, tag2)
   })
 
-  const target = paths.find((x) => x[3] === 2)
+  const targetTag = waypoints.find((x) => x[3] === 2)[2]
 
   const distance = graph.alg.dijkstra(g, "0,0", null, g.nodeEdges.bind(g))[
-    target[2]
+    targetTag
   ].distance
 
-  return { distance, tag: target[2], g }
+  /* Uncomment the next line to draw the paths */
+  await drawPaths(g, targetTag, map)
+
+  return { distance, targetTag, g }
 }
 
-const goB = async (tag, g) => {
+const goB = async (tag: string, g: graph.Graph) => {
   const paths = graph.alg.dijkstra(g, tag, null, g.nodeEdges.bind(g))
+
   return Math.max(...Object.values(paths).map((x) => x.distance))
 }
 
@@ -165,7 +165,7 @@ const main = async () => {
 
   console.time("Time")
   const resultA = await goA(input)
-  const resultB = await goB(resultA.tag, resultA.g)
+  const resultB = await goB(resultA.targetTag, resultA.g)
   console.timeEnd("Time")
 
   console.log("Solution to part 1:", resultA.distance)
