@@ -108,7 +108,7 @@ const goA = async (source: string) => {
     }
 
     /* Uncomment the next line to draw the maze */
-    status === Status.MOVED && draw([...map.values()], [currentX, currentY])
+    // status === Status.MOVED && draw([...map.values()], [currentX, currentY])
 
     if (status === Status.MOVED && currentX === 0 && currentY === 0) {
       break
@@ -148,7 +148,7 @@ const goA = async (source: string) => {
   ].distance
 
   /* Uncomment the next line to draw the paths */
-  await drawPaths(g, targetTag, map)
+  // await drawPaths(g, targetTag, map)
 
   return { distance, targetTag, g }
 }
@@ -168,8 +168,8 @@ const main = async () => {
   const resultB = await goB(resultA.targetTag, resultA.g)
   console.timeEnd("Time")
 
-  console.log("Solution to part 1:", resultA.distance)
-  console.log("Solution to part 2:", resultB)
+  console.log("Solution to part 1:", resultA.distance) // -> 236
+  console.log("Solution to part 2:", resultB) // -> 368
 }
 
 main()
