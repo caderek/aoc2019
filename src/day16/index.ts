@@ -4,7 +4,7 @@ const prepareInput = (rawInput: string) => rawInput.split("").map(Number)
 
 const basePattern = [0, 1, 0, -1]
 
-const getPattern = (n, index) => {
+const getPattern = (n: number, index: number) => {
   return basePattern[Math.floor(((index + 1) % (4 * n)) / n)]
 }
 
@@ -27,17 +27,22 @@ const goA = (rawInput: string) => {
 }
 
 const goB = (rawInput: string) => {
-  let digits = R.repeat(prepareInput(rawInput), 10000).flat()
-  const messageOffset = Number(digits.slice(0, 7).join(""))
+  let base = prepareInput(rawInput)
+  const baseOffset = Number(base.slice(0, 7).join(""))
+  const times = Math.ceil((base.length * 10000 - baseOffset) / base.length)
+
+  const digits = R.repeat(base, times)
+    .flat()
+    .slice(baseOffset % base.length)
 
   for (let i = 0; i < 100; i++) {
-    for (let j = digits.length - 2; j >= messageOffset; j--) {
+    for (let j = digits.length - 2; j >= 0; j--) {
       const digit = digits[j] + digits[j + 1]
       digits[j] = Math.abs(digit) % 10
     }
   }
 
-  return digits.slice(messageOffset, messageOffset + 8).join("")
+  return digits.slice(0, 8).join("")
 }
 
 /* Tests */
@@ -61,5 +66,3 @@ console.timeEnd("Time")
 
 console.log("Solution to part 1:", resultA) // -> 89576828
 console.log("Solution to part 2:", resultB) // -> 23752579
-
-export { getPattern }

@@ -177,7 +177,7 @@ Solution to part 2: 368
 
 day16
 ------------------------------
-Time: 1788.289ms
+Time: 877.311ms
 Solution to part 1: 89576828
 Solution to part 2: 23752579
 ```
