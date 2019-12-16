@@ -4,7 +4,7 @@ const prepareInput = (rawInput: string) => rawInput.split("").map(Number)
 
 const basePattern = [0, 1, 0, -1]
 
-const getPattern = (n: number, index: number) => {
+const getMultiplier = (n: number, index: number) => {
   return basePattern[Math.floor(((index + 1) % (4 * n)) / n)]
 }
 
@@ -16,7 +16,7 @@ const goA = (rawInput: string) => {
       let digit = 0
 
       for (let k = 0; k < digits.length; k++) {
-        digit += digits[k] * getPattern(j + 1, k)
+        digit += digits[k] * getMultiplier(j + 1, k)
       }
 
       digits[j] = Math.abs(digit) % 10
