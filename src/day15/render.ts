@@ -1,8 +1,7 @@
 import logUpdate from "log-update"
 import * as kleur from "kleur"
 
-const randomColor = () =>
-  ["green", "cyan", "blue"][Math.floor(Math.random() * 3)]
+const randomColor = () => ["cyan", "blue"][Math.floor(Math.random() * 2)]
 
 const tiles = {
   0: () => kleur[randomColor()]("\u2588\u2588"),
@@ -29,7 +28,7 @@ const draw = (data, droid) => {
     for (let col = 0; col < maxWidth; col++) {
       if (grid[row][col] === undefined) {
         grid[row][col] =
-          droid[0] === 0 && droid[1] === 0 ? tiles[0]() : kleur.gray("??")
+          droid[0] === 0 && droid[1] === 0 ? tiles[0]() : kleur.gray("? ")
       } else {
         grid[row][col] =
           typeof tiles[grid[row][col]] === "function"

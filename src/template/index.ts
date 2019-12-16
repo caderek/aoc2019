@@ -9,6 +9,7 @@ import {
   iter,
   R,
   graph,
+  log,
 } from "../utils/index"
 
 const prepareInput = (rawInput: string) => rawInput

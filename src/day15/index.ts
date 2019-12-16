@@ -108,7 +108,7 @@ const goA = async (source: string) => {
     }
 
     /* Uncomment the next line to draw the maze */
-    // status === Status.MOVED && draw([...map.values()], [currentX, currentY])
+    status === Status.MOVED && draw([...map.values()], [currentX, currentY])
 
     if (status === Status.MOVED && currentX === 0 && currentY === 0) {
       break
