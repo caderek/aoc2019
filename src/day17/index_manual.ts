@@ -1,5 +1,5 @@
-import { readInput, delay } from "../utils/index"
-import compute, { unblock } from "./computer"
+import { readInput, arr } from "../utils/index"
+import compute from "./computer"
 
 enum ASCII {
   A = "A".charCodeAt(0),
@@ -35,23 +35,9 @@ const goA = async (source: string) => {
 
   const out = await compute(source, inputs, outputs)
 
-  const points = [[]]
+  console.log(String.fromCharCode(...out))
 
-  out.forEach((item) => {
-    if (item === 10) {
-      points.push([])
-    } else if (item < 256) {
-      points[points.length - 1].push(`${String.fromCharCode(item)} `)
-    } else {
-      points[points.length - 1].push("? ")
-    }
-  })
-
-  const map = points.map((x) => x.join("")).join("\n")
-
-  // console.log(map)
-
-  const result =
+  return (
     36 * 6 +
     40 * 10 +
     46 * 10 +
@@ -64,8 +50,7 @@ const goA = async (source: string) => {
     26 * 26 +
     44 * 28 +
     36 * 30
-
-  return result
+  )
 }
 
 /* My "computations" for part two:
@@ -164,48 +149,12 @@ const continuosFeed = [ASCII.NO, ASCII.NEW_LINE]
 const commands = [functions, ...definitions, continuosFeed]
 
 const goB = async (source: string) => {
-  const inputs = []
+  const inputs = [...commands.flat()]
   const outputs = []
   const modifiedSource = "2" + source.slice(1)
-  let done = false
-  let result: number
+  const out = await compute(modifiedSource, inputs, outputs)
 
-  compute(modifiedSource, inputs, outputs).then(() => (done = true))
-
-  while (!done) {
-    if (outputs.length === 0) {
-      await unblock()
-    }
-
-    let out = []
-
-    while (outputs.length !== 0) {
-      out.push(outputs.shift())
-    }
-
-    const points = [[]]
-
-    out.forEach((item) => {
-      if (item === 10) {
-        points.push([])
-      } else if (item < 256) {
-        points[points.length - 1].push(`${String.fromCharCode(item)} `)
-      } else {
-        result = item
-      }
-    })
-
-    const screen = points.map((x) => x.join("")).join("\n")
-
-    // console.log(screen)
-    // await delay(500)
-
-    if (commands.length !== 0) {
-      commands.shift().forEach((char) => inputs.push(char))
-    }
-  }
-
-  return result
+  return arr.last_(out)
 }
 
 /* Results */

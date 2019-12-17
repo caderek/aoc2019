@@ -1,4 +1,4 @@
-import { readInput, delay, graph, log, equal } from "../utils/index"
+import { readInput, delay, graph, log, equal, arr } from "../utils/index"
 import compute, { unblock } from "./computer"
 
 enum ASCII {
@@ -35,26 +35,26 @@ const goA = async (source: string) => {
 
   const out = await compute(source, inputs, outputs)
 
-  const points = [[]]
+  const points = out.reduce(
+    (arr, item) => {
+      item === 10
+        ? arr.push([])
+        : arr[arr.length - 1].push(`${String.fromCharCode(item)}`)
 
-  out.forEach((item) => {
-    if (item === 10) {
-      points.push([])
-    } else if (item < 256) {
-      points[points.length - 1].push(`${String.fromCharCode(item)}`)
-    } else {
-      points[points.length - 1].push("?")
-    }
-  })
+      return arr
+    },
+    [[]],
+  )
 
   /* Uncomment the next two lines to render the map */
   // const map = points.map((x) => x.join("")).join("\n")
   // console.log(map)
 
-  return points
-    .flatMap((row, y) =>
-      row.reduce((arr, char, x) => (char === "#" ? [...arr, [x, y]] : arr), []),
-    )
+  const scaffolding = points.flatMap((row, y) =>
+    row.reduce((arr, char, x) => (char === "#" ? [...arr, [x, y]] : arr), []),
+  )
+
+  const answer = scaffolding
     .filter(
       ([x, y], _, arr) =>
         arr.find(equal([x, y - 1])) &&
@@ -63,6 +63,8 @@ const goA = async (source: string) => {
         arr.find(equal([x + 1, y])),
     )
     .reduce((sum, [x, y]) => sum + x * y, 0)
+
+  return { answer, points }
 }
 
 /* My "computations" for part two:
@@ -160,49 +162,24 @@ const continuosFeed = [ASCII.NO, ASCII.NEW_LINE]
 
 const commands = [functions, ...definitions, continuosFeed]
 
+const findFunctions = (points) => {
+  const items = points.flatMap((row, y) =>
+    row.reduce((arr, char, x) => [...arr, [x, y, char]], []),
+  )
+
+  const scaffolding = items.filter((item) => item[2] === "#")
+  const robot = items.find((item) => ["^", "v", ">", "<"].includes(item[2]))
+
+  // log({ items, scaffolding, robot })
+}
+
 const goB = async (source: string) => {
-  const inputs = []
+  const inputs = [...commands.flat()]
   const outputs = []
   const modifiedSource = "2" + source.slice(1)
-  let done = false
-  let result: number
+  const out = await compute(modifiedSource, inputs, outputs)
 
-  compute(modifiedSource, inputs, outputs).then(() => (done = true))
-
-  while (!done) {
-    if (outputs.length === 0) {
-      await unblock()
-    }
-
-    let out = []
-
-    while (outputs.length !== 0) {
-      out.push(outputs.shift())
-    }
-
-    const points = [[]]
-
-    out.forEach((item) => {
-      if (item === 10) {
-        points.push([])
-      } else if (item < 256) {
-        points[points.length - 1].push(`${String.fromCharCode(item)} `)
-      } else {
-        result = item
-      }
-    })
-
-    const screen = points.map((x) => x.join("")).join("\n")
-
-    // console.log(screen)
-    // await delay(500)
-
-    if (commands.length !== 0) {
-      commands.shift().forEach((char) => inputs.push(char))
-    }
-  }
-
-  return result
+  return arr.last_(out)
 }
 
 /* Results */
@@ -212,11 +189,13 @@ const main = async () => {
 
   console.time("Time")
   const resultA = await goA(input)
-  // const resultB = await goB(input)
+  const resultB = await goB(input)
   console.timeEnd("Time")
 
-  console.log("Solution to part 1:", resultA) // -> 7816
-  // console.log("Solution to part 2:", resultB) // -> 952010
+  findFunctions(resultA.points)
+
+  console.log("Solution to part 1:", resultA.answer) // -> 7816
+  console.log("Solution to part 2:", resultB) // -> 952010
 }
 
 main()
