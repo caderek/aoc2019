@@ -150,9 +150,8 @@ const commands = [functions, ...definitions, continuosFeed]
 
 const goB = async (source: string) => {
   const inputs = [...commands.flat()]
-  const outputs = []
   const modifiedSource = "2" + source.slice(1)
-  const out = await compute(modifiedSource, inputs, outputs)
+  const out = await compute(modifiedSource, inputs)
 
   return arr.last_(out)
 }

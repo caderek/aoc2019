@@ -183,7 +183,7 @@ Solution to part 2: 23752579
 
 day17
 ------------------------------
-Time: 252.385ms
+Time: 214.220ms
 Solution to part 1: 7816
 Solution to part 2: 952010
 ```
