@@ -1,4 +1,4 @@
-import { readInput, delay, graph, log, equal } from "../utils/index"
+import { readInput, delay } from "../utils/index"
 import compute, { unblock } from "./computer"
 
 enum ASCII {
@@ -41,28 +41,31 @@ const goA = async (source: string) => {
     if (item === 10) {
       points.push([])
     } else if (item < 256) {
-      points[points.length - 1].push(`${String.fromCharCode(item)}`)
+      points[points.length - 1].push(`${String.fromCharCode(item)} `)
     } else {
-      points[points.length - 1].push("?")
+      points[points.length - 1].push("? ")
     }
   })
 
-  /* Uncomment the next two lines to render the map */
-  // const map = points.map((x) => x.join("")).join("\n")
+  const map = points.map((x) => x.join("")).join("\n")
+
   // console.log(map)
 
-  return points
-    .flatMap((row, y) =>
-      row.reduce((arr, char, x) => (char === "#" ? [...arr, [x, y]] : arr), []),
-    )
-    .filter(
-      ([x, y], _, arr) =>
-        arr.find(equal([x, y - 1])) &&
-        arr.find(equal([x, y + 1])) &&
-        arr.find(equal([x - 1, y])) &&
-        arr.find(equal([x + 1, y])),
-    )
-    .reduce((sum, [x, y]) => sum + x * y, 0)
+  const result =
+    36 * 6 +
+    40 * 10 +
+    46 * 10 +
+    22 * 12 +
+    28 * 14 +
+    48 * 18 +
+    24 * 18 +
+    44 * 22 +
+    32 * 26 +
+    26 * 26 +
+    44 * 28 +
+    36 * 30
+
+  return result
 }
 
 /* My "computations" for part two:
@@ -212,11 +215,11 @@ const main = async () => {
 
   console.time("Time")
   const resultA = await goA(input)
-  // const resultB = await goB(input)
+  const resultB = await goB(input)
   console.timeEnd("Time")
 
   console.log("Solution to part 1:", resultA) // -> 7816
-  // console.log("Solution to part 2:", resultB) // -> 952010
+  console.log("Solution to part 2:", resultB) // -> 952010
 }
 
 main()

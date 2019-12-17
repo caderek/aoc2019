@@ -6,9 +6,25 @@ import * as math from "mathjs"
 import * as iter from "iter-tools"
 import * as R from "ramda"
 import * as graph from "graphlib"
+import { isDeepStrictEqual } from "util"
 
 const log = (data) => console.dir(data, { colors: true, depth: 99 })
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+const equal = com.curry(isDeepStrictEqual)
 
-export { test, readInput, arr, com, mul, dis, math, iter, R, graph, log, delay }
+export {
+  test,
+  readInput,
+  arr,
+  com,
+  mul,
+  dis,
+  math,
+  iter,
+  R,
+  graph,
+  log,
+  delay,
+  equal,
+}
 export default { test, readInput }
