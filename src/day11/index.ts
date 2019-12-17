@@ -100,12 +100,12 @@ const main = async () => {
 
   console.time("Time")
   const resultA = await goA(input, 0)
-  const resultB = await goB(goA(input, 1))
+  // const resultB = await goB(goA(input, 1))
   console.timeEnd("Time")
 
   console.log("Solution to part 1:", resultA.length) // -> 1967
   console.log("Solution to part 2:")
-  console.log(resultB)
+  // console.log(resultB)
 
   /* ->
 

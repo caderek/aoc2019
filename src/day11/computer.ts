@@ -81,6 +81,44 @@ const getWriteIndex = (
     : getCell(pointer + index + 1, program)
 }
 
+const debug = (
+  program: number[],
+  pointer: number,
+  relativeBase: number,
+  opcode: Ops,
+  params: number[],
+  a: number,
+  b: number,
+  debugIndex: number,
+  maxLogged = 0,
+) => {
+  const getIndex = getWriteIndex(program, params, pointer, relativeBase)
+
+  if (maxLogged === 0 || debugIndex < maxLogged) {
+    console.log(
+      `\n[${debugIndex}]--------------------------------------------------\n`,
+    )
+    console.log(
+      `Op: ${Ops[opcode]} | Pointer: ${pointer} | Rel base: ${relativeBase}`,
+    )
+    console.log(`\nParams:`)
+    if (![Ops.INPUT].includes(opcode)) {
+      console.log(`    a -> mode: ${Modes[params[0]]}, value: ${a}`)
+    }
+    if (![Ops.INPUT, Ops.OUTPUT, Ops.RELATIVE_BASE_OFFSET].includes(opcode)) {
+      console.log(`    b -> mode: ${Modes[params[1]]}, value: ${b}`)
+    }
+    if ([Ops.ADD, Ops.MULTIPLY, Ops.LESS_THAN, Ops.EQUALS].includes(opcode)) {
+      console.log(`\nSave to:`)
+      console.log(`    -> mode: ${Modes[params[2]]}, address: ${getIndex(2)}`)
+    }
+    if ([Ops.INPUT].includes(opcode)) {
+      console.log(`\nSave to:`)
+      console.log(`    -> mode: ${Modes[params[0]]}, address: ${getIndex(0)}`)
+    }
+  }
+}
+
 const compute = async (
   source: string,
   inputs: number[] = [],
@@ -89,8 +127,12 @@ const compute = async (
 ) => {
   const program = source.split(",").map(Number)
 
+  // console.log("Spawned VM, initial state:")
+  // console.log({ inputs, outputs, phaseSettings })
+
   let pointer = 0
   let relativeBase = 0
+  let debugIndex = 0
 
   while (true) {
     const first = String(getCell(pointer, program)).padStart(5, "0")
@@ -113,6 +155,18 @@ const compute = async (
     const b: number = getValue(program, params, pointer, 1, relativeBase)
 
     const getIndex = getWriteIndex(program, params, pointer, relativeBase)
+
+    debug(
+      program,
+      pointer,
+      relativeBase,
+      opcode,
+      params,
+      a,
+      b,
+      debugIndex++,
+      10,
+    )
 
     switch (opcode) {
       case Ops.ADD:
