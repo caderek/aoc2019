@@ -174,12 +174,11 @@ const findFunctions = (points) => {
 }
 
 const goB = async (source: string) => {
-  const inputs = [...commands.flat()]
-  const outputs = []
   const modifiedSource = "2" + source.slice(1)
-  const out = await compute(modifiedSource, inputs, outputs)
+  const inputs = [...commands.flat()]
+  const outputs = await compute(modifiedSource, inputs)
 
-  return arr.last_(out)
+  return arr.last_(outputs)
 }
 
 /* Results */
