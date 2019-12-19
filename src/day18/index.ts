@@ -69,39 +69,35 @@ const goA = (rawInput: string) => {
   const tiles = prepareInput(rawInput)
   const dis = getDistances(tiles)
 
-  log(dis["e"])
-
-  /* Order: g s i x u r e  */
+  /* Order (solved manually): a o q y g s i x u r e f d h v w b c z l n p j t k m */
 
   return (
-    dis["@"].g +
+    dis["@"].a +
+    dis.a.o +
+    dis.o.q +
+    dis.q.y +
+    dis.y.g +
     dis.g.s +
     dis.s.i +
     dis.i.x +
     dis.x.u +
     dis.u.r +
     dis.r.e +
-    334 +
-    dis.a.o +
-    dis.o.q +
-    dis.q.y +
-    378 +
-    342 +
-    346 +
-    160 +
-    48 +
-    16 +
-    14 +
-    644 +
-    680 +
-    718 +
-    12 +
-    22 +
-    14 +
-    20 +
-    16
-
-    // -> 4246
+    dis.e.f +
+    dis.f.d +
+    dis.d.h +
+    dis.h.v +
+    dis.v.w +
+    dis.w.b +
+    dis.b.c +
+    dis.c.z +
+    dis.z.l +
+    dis.l.n +
+    dis.n.p +
+    dis.p.j +
+    dis.j.t +
+    dis.t.k +
+    dis.k.m
   )
 }
 
@@ -120,7 +116,7 @@ const goB = (rawInput: string) => {
 
   const dis = getDistances(tiles)
 
-  /* Order: g s i x u r e a o q y h v f d w b c z l n p j t k m */
+  /* Order (solved manually): g s i x u r e a o q y h v f d w b c z l n p j t k m */
 
   return (
     dis[4].g +
