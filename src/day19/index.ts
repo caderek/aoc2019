@@ -19,22 +19,20 @@ const goA = async (source: string) => {
 }
 
 const goB = async (source: string) => {
-  const target = 100
+  const size = 100
+  const from = 500
+  const to = 1500
 
-  for (let y = 500; y < 1500; y++) {
-    for (let x = 500; x < 1500; x++) {
+  for (let y = from; y < to; y++) {
+    for (let x = from; x < to; x++) {
       const [a] = await compute(source, [x, y])
-      if (a === 0) {
-        continue
-      }
-      const [b] = await compute(source, [x + target - 1, y])
-      if (b === 0) {
-        continue
-      }
-      const [c] = await compute(source, [x, y + target - 1])
-      if (c === 0) {
-        continue
-      }
+      if (!a) continue
+
+      const [b] = await compute(source, [x + size - 1, y])
+      if (!b) continue
+
+      const [c] = await compute(source, [x, y + size - 1])
+      if (!c) continue
 
       return x * 10000 + y
     }
