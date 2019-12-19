@@ -2,18 +2,14 @@ import { readInput } from "../utils/index"
 import compute from "./computer"
 
 const goA = async (source: string) => {
-  const points = []
   const size = 50
+  const outputs = []
 
   for (let y = 0; y < size; y++) {
     for (let x = 0; x < size; x++) {
-      points.push([x, y])
+      outputs.push(await compute(source, [x, y]))
     }
   }
-
-  const outputs = await Promise.all(
-    points.map((point) => compute(source, point)),
-  )
 
   return outputs.flat().filter((x) => x === 1).length
 }
@@ -46,11 +42,11 @@ const main = async () => {
 
   console.time("Time")
   const resultA = await goA(input)
-  const resultB = await goB(input)
+  // const resultB = await goB(input)
   console.timeEnd("Time")
 
   console.log("Solution to part 1:", resultA) // -> 220
-  console.log("Solution to part 2:", resultB) // -> 10010825
+  // console.log("Solution to part 2:", resultB) // -> 10010825
 }
 
 main()
