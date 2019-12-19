@@ -37,9 +37,7 @@ const goA = async (source: string) => {
 
   const points = out.reduce(
     (arr, item) => {
-      item === 10
-        ? arr.push([])
-        : arr[arr.length - 1].push(`${String.fromCharCode(item)}`)
+      item === 10 ? arr.push([]) : arr[arr.length - 1].push(item)
 
       return arr
     },
@@ -51,7 +49,10 @@ const goA = async (source: string) => {
   // console.log(map)
 
   const scaffolding = points.flatMap((row, y) =>
-    row.reduce((arr, char, x) => (char === "#" ? [...arr, [x, y]] : arr), []),
+    row.reduce(
+      (arr, char, x) => (char === ASCII.SCAFFOLD ? [...arr, [x, y]] : arr),
+      [],
+    ),
   )
 
   const answer = scaffolding
@@ -162,15 +163,54 @@ const continuosFeed = [ASCII.NO, ASCII.NEW_LINE]
 
 const commands = [functions, ...definitions, continuosFeed]
 
+enum Dir {
+  "^",
+  "v",
+  ">",
+  "<",
+}
+
+enum Clockwise {
+  "^" = Dir[">"],
+  "v" = Dir["<"],
+  ">" = Dir["v"],
+  "<" = Dir["^"],
+}
+
+enum Counterclockwise {
+  "^" = Dir["<"],
+  "v" = Dir[">"],
+  ">" = Dir["^"],
+  "<" = Dir["v"],
+}
+
+const Increments = new Map([
+  [Dir["^"], [0, -1]],
+  [Dir["v"], [0, 1]],
+  [Dir[">"], [1, 0]],
+  [Dir["<"], [-1, 0]],
+])
+
 const findFunctions = (points) => {
   const items = points.flatMap((row, y) =>
     row.reduce((arr, char, x) => [...arr, [x, y, char]], []),
   )
 
-  const scaffolding = items.filter((item) => item[2] === "#")
-  const robot = items.find((item) => ["^", "v", ">", "<"].includes(item[2]))
+  const scaffolding = items.filter((item) => item[2] === ASCII.SCAFFOLD)
+  const robot = items.find((item) =>
+    [
+      ASCII.UP_ARROW,
+      ASCII.DOWN_ARROW,
+      ASCII.RIGHT_ARROW,
+      ASCII.LEFT_ARROW,
+    ].includes(item[2]),
+  )
 
-  // log({ items, scaffolding, robot })
+  log({ items, scaffolding, robot })
+
+  let currentX = robot[0]
+  let currentY = robot[1]
+  let currentDir = Dir[robot[2]]
 }
 
 const goB = async (source: string) => {
@@ -188,13 +228,13 @@ const main = async () => {
 
   console.time("Time")
   const resultA = await goA(input)
-  const resultB = await goB(input)
+  // const resultB = await goB(input)
   console.timeEnd("Time")
 
   findFunctions(resultA.points)
 
   console.log("Solution to part 1:", resultA.answer) // -> 7816
-  console.log("Solution to part 2:", resultB) // -> 952010
+  // console.log("Solution to part 2:", resultB) // -> 952010
 }
 
 main()

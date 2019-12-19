@@ -19,8 +19,8 @@
 [![Day](https://badgen.net/badge/15/%E2%98%85%E2%98%85/blue)](src/day15)
 [![Day](https://badgen.net/badge/16/%E2%98%85%E2%98%85/blue)](src/day16)
 [![Day](https://badgen.net/badge/17/%E2%98%85%E2%98%85/blue)](src/day17)
-[![Day](https://badgen.net/badge/18/%E2%98%86%E2%98%86/grey)](src/day18)
-[![Day](https://badgen.net/badge/19/%E2%98%86%E2%98%86/grey)](src/day19)
+[![Day](https://badgen.net/badge/18/%E2%98%86%E2%98%86/red)](src/day18)
+[![Day](https://badgen.net/badge/19/%E2%98%85%E2%98%85/blue)](src/day19)
 [![Day](https://badgen.net/badge/20/%E2%98%86%E2%98%86/grey)](src/day20)
 [![Day](https://badgen.net/badge/21/%E2%98%86%E2%98%86/grey)](src/day21)
 [![Day](https://badgen.net/badge/22/%E2%98%86%E2%98%86/grey)](src/day22)
@@ -186,4 +186,16 @@ day17
 Time: 214.220ms
 Solution to part 1: 7816
 Solution to part 2: 952010
+
+day18
+------------------------------
+Time: --
+Solution to part 1: --
+Solution to part 2: --
+
+day19
+------------------------------
+Time: 154505.973ms
+Solution to part 1: 220
+Solution to part 2: 10010825
 ```
