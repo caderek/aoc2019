@@ -1,4 +1,5 @@
 import { readInput, graph } from "../utils/index"
+import { connections } from "./connections"
 
 const prepareInput = (rawInput: string) =>
   rawInput.split("\n").map((row) => row.split(""))
@@ -103,66 +104,6 @@ const goB = (rawInput: string) => {
   const waypointsByTag = Object.fromEntries(
     Object.entries(waypoints).map(([id, tag]) => [tag, id]),
   )
-
-  const connections = {
-    a: ["f", "I"],
-    b: ["J"],
-    c: ["D"],
-    d: ["K"],
-    e: ["L"],
-    f: ["a", "I"],
-    g: ["H"],
-    h: ["z", "V"],
-    i: ["Q"],
-    j: ["Y"],
-    k: ["Ą"],
-    l: ["O"],
-    m: ["S"],
-    n: ["P"],
-    o: ["C"],
-    p: ["R"],
-    q: ["U"],
-    r: ["T"],
-    s: ["u", "N", "B"],
-    t: ["F"],
-    u: ["s", "N", "B"],
-    v: ["W"],
-    w: ["X"],
-    x: ["E"],
-    y: ["Ę"],
-    z: ["V"],
-    ą: ["M"],
-    ć: ["G"],
-    ę: ["Ć"],
-    B: ["N", "u", "s"],
-    C: ["o"],
-    D: ["c"],
-    E: ["x"],
-    F: ["t"],
-    G: ["ć"],
-    H: ["g"],
-    I: ["f"],
-    J: ["b"],
-    K: ["d"],
-    L: ["e"],
-    M: ["ą"],
-    N: ["B", "u", "s"],
-    O: ["l"],
-    P: ["n"],
-    Q: ["i"],
-    R: ["p"],
-    S: ["m"],
-    T: ["r"],
-    U: ["q"],
-    V: ["z", "h"],
-    W: ["v"],
-    X: ["w"],
-    Y: ["j"],
-    Ą: ["k"],
-    Ć: ["ę"],
-    Ę: ["y"],
-    Ł: ["z"],
-  }
 
   const recur = (from: string, level: number, previous = []) => {
     const nodes = connections[from]
