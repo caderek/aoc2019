@@ -27,7 +27,7 @@ const goA = async (source: string) => {
 
   const output = await compute(source, toASCII(program))
 
-  console.log(String.fromCharCode(...arr.butLast_(output)))
+  // console.log(String.fromCharCode(...arr.butLast_(output)))
 
   return arr.last_(output)
 }
@@ -48,7 +48,7 @@ const goB = async (source: string) => {
 
   const output = await compute(source, toASCII(program))
 
-  console.log(String.fromCharCode(...arr.butLast_(output)))
+  // console.log(String.fromCharCode(...arr.butLast_(output)))
 
   return arr.last_(output)
 }
