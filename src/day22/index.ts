@@ -27,18 +27,18 @@ const goA = (rawInput: string) => {
         break
       }
       case "cut": {
-        const a = deck.slice(val)
-        const b = deck.slice(0, val)
-        deck = a.concat(b)
+        const left = deck.slice(val)
+        const right = deck.slice(0, val)
+        deck = left.concat(right)
         break
       }
       case "inc": {
-        const temp = arr.range_(0, cards).fill(null)
+        const temp = new Array(cards)
         let originalIndex = 0
         let index = 0
 
         while (originalIndex < cards) {
-          if (temp[index % cards] === null) {
+          if (temp[index % cards] === undefined) {
             temp[index % cards] = deck[originalIndex]
             originalIndex++
           }
