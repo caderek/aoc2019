@@ -25,6 +25,7 @@
     "@arrows/multimethod": "^1.1.6",
     "@arrows/worker": "^1.2.0",
     "@types/ramda": "^0.26.37",
+    "bigint-crypto-utils": "^2.4.2",
     "clone-deep": "^4.0.1",
     "get-caller-file": "^2.0.5",
     "graphlib": "^2.1.8",
