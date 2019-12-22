@@ -57,9 +57,9 @@ const goA = (rawInput: string) => {
 
 const goB = (rawInput: string) => {
   const moves = prepareInput(rawInput, BigInt)
-  const repeats = 101741582076661n
+  const times = 101741582076661n
   const deckSize = 119315717514047n
-  const card = 2020n
+  const cardPosition = 2020n
 
   let incMultiplier = 1n
   let offsetDiff = 0n
@@ -82,7 +82,7 @@ const goB = (rawInput: string) => {
     }
   })
 
-  const inc: bigint = modPow(incMultiplier, repeats, deckSize)
+  const inc: bigint = modPow(incMultiplier, times, deckSize)
 
   let offset =
     (offsetDiff *
@@ -90,7 +90,7 @@ const goB = (rawInput: string) => {
       modInv((1n - incMultiplier) % deckSize, deckSize)) %
     deckSize
 
-  return Number((offset + inc * card) % deckSize)
+  return Number((offset + inc * cardPosition) % deckSize)
 }
 
 /* Results */
