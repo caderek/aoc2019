@@ -21,27 +21,33 @@ const goA = (rawInput: string) => {
   let deck = arr.range_(0, cards)
 
   moves.forEach(({ type, val }) => {
-    if (type === "rev") {
-      deck.reverse()
-    } else if (type === "cut") {
-      const a = deck.slice(val)
-      const b = deck.slice(0, val)
-      deck = a.concat(b)
-    } else if (type === "inc") {
-      const temp = arr.range_(0, cards).fill(null)
-      let originalIndex = 0
-      let index = 0
+    switch (type) {
+      case "rev": {
+        deck.reverse()
+        break
+      }
+      case "cut": {
+        const a = deck.slice(val)
+        const b = deck.slice(0, val)
+        break
+      }
+      case "inc": {
+        const temp = arr.range_(0, cards).fill(null)
+        let originalIndex = 0
+        let index = 0
 
-      while (originalIndex < cards) {
-        if (temp[index % cards] === null) {
-          temp[index % cards] = deck[originalIndex]
-          originalIndex++
+        while (originalIndex < cards) {
+          if (temp[index % cards] === null) {
+            temp[index % cards] = deck[originalIndex]
+            originalIndex++
+          }
+
+          index += val
         }
 
-        index += val
+        deck = temp
+        break
       }
-
-      deck = temp
     }
   })
 

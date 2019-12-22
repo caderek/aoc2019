@@ -213,7 +213,7 @@ Solution to part 2: 1143652885
 
 day22
 ------------------------------
-Time: 44.484ms
-Solution to part 1: 3074
-Solution to part 2: 104073967000066
+Time: 23.844ms
+Solution to part 1: 8577
+Solution to part 2: 1040739670000666
 ```
