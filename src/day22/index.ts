@@ -29,6 +29,7 @@ const goA = (rawInput: string) => {
       case "cut": {
         const a = deck.slice(val)
         const b = deck.slice(0, val)
+        deck = a.concat(b)
         break
       }
       case "inc": {
@@ -57,40 +58,39 @@ const goA = (rawInput: string) => {
 const goB = (rawInput: string) => {
   const moves = prepareInput(rawInput, BigInt)
   const repeats = 101741582076661n
-  const cards = 119315717514047n
+  const deckSize = 119315717514047n
   const card = 2020n
 
-  let incMul = 1n
+  let incMultiplier = 1n
   let offsetDiff = 0n
 
   moves.forEach(({ type, val }) => {
     switch (type) {
       case "rev": {
-        incMul *= -1n
-        incMul = incMul % cards
-        offsetDiff += incMul
-        offsetDiff = offsetDiff % cards
+        incMultiplier = -incMultiplier % deckSize
+        offsetDiff = (offsetDiff + incMultiplier) % deckSize
         break
       }
       case "cut": {
-        offsetDiff += val * incMul
-        offsetDiff = offsetDiff % cards
+        offsetDiff = (offsetDiff + val * incMultiplier) % deckSize
         break
       }
       case "inc": {
-        incMul *= modInv(val, cards)
-        incMul = incMul % cards
+        incMultiplier = (incMultiplier * modInv(val, deckSize)) % deckSize
         break
       }
     }
   })
 
-  const inc: bigint = modPow(incMul, repeats, cards)
+  const inc: bigint = modPow(incMultiplier, repeats, deckSize)
 
   let offset =
-    (offsetDiff * (1n - inc) * modInv((1n - incMul) % cards, cards)) % cards
+    (offsetDiff *
+      (1n - inc) *
+      modInv((1n - incMultiplier) % deckSize, deckSize)) %
+    deckSize
 
-  return Number((offset + inc * card) % cards)
+  return Number((offset + inc * card) % deckSize)
 }
 
 /* Results */
