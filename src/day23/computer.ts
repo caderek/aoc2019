@@ -130,7 +130,6 @@ const compute = async (
         } else {
           setCell(getIndex(0), -1, program)
           await unblock()
-          // shouldJump = false
         }
         break
       }
