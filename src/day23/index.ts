@@ -94,6 +94,8 @@ const main = async () => {
 
   console.log("Solution to part 1:", resultA) // -> 17541
   console.log("Solution to part 2:", resultB) // -> 12415
+
+  process.exit()
 }
 
 main()
