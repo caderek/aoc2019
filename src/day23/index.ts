@@ -30,6 +30,8 @@ const goA = async (source: string) => {
         inputBuffers[address].push(Y)
       })
     })
+
+    inputBuffers.forEach((buffer) => buffer.length === 0 && buffer.push(-1))
   }
 }
 
@@ -75,6 +77,8 @@ const goB = async (source: string) => {
         }
       })
     })
+
+    inputBuffers.forEach((buffer) => buffer.length === 0 && buffer.push(-1))
   }
 }
 

@@ -128,8 +128,8 @@ const compute = async (
         } else if (inputs.length > 0) {
           setCell(getIndex(0), inputs.shift(), program)
         } else {
-          setCell(getIndex(0), -1, program)
           await unblock()
+          shouldJump = false
         }
         break
       }
