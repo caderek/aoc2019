@@ -78,25 +78,18 @@ const getSide = (side, layer, layers, key, x, y) => {
   const deeper = isDeeperLevel[side](x, y)
   const upper = isUpperLevel[side](x, y)
 
-  if (!deeper && !upper) {
-    const [incY, incX] = inc[side]
-
-    return layer[y + incY][x + incX] === "#" ? 1 : 0
-  }
-
   if (deeper) {
     const l = layers[Number(key) + 1]
     if (l === undefined) {
       return 0
     }
 
-    const res = {
+    return {
       left: [l[0][4], l[1][4], l[2][4], l[3][4], l[4][4]],
       right: [l[0][0], l[1][0], l[2][0], l[3][0], l[4][0]],
       top: [l[4][0], l[4][1], l[4][2], l[4][3], l[4][4]],
       down: [l[0][0], l[0][1], l[0][2], l[0][3], l[0][4]],
     }[side].filter((x) => x === "#").length
-    return res
   }
 
   if (upper) {
@@ -115,6 +108,10 @@ const getSide = (side, layer, layers, key, x, y) => {
       ? 1
       : 0
   }
+
+  const [incY, incX] = inc[side]
+
+  return layer[y + incY][x + incX] === "#" ? 1 : 0
 }
 
 const goB = (rawInput: string, minutes = 200) => {
@@ -128,13 +125,9 @@ const goB = (rawInput: string, minutes = 200) => {
       Array.from({ length: 5 }, () => "."),
     )
 
-    layers[minute + 1][2][2] = "?"
-
     layers[-(minute + 1)] = Array.from({ length: 5 }, () =>
       Array.from({ length: 5 }, () => "."),
     )
-
-    layers[-(minute + 1)][2][2] = "?"
 
     const temp = JSON.parse(JSON.stringify(layers))
 
@@ -147,7 +140,6 @@ const goB = (rawInput: string, minutes = 200) => {
       for (let y = 0; y < layer.length; y++) {
         for (let x = 0; x < layer.length; x++) {
           if (x === 2 && y === 2) {
-            tempLayer[y][x] = "?"
             continue
           }
 
