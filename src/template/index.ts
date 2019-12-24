@@ -26,22 +26,26 @@ const goB = (rawInput: string) => {
   return
 }
 
-/* Tests */
+const main = async () => {
+  /* Tests */
 
-// test(goA(""), )
-// test(goA(""), )
+  // test(goA(""), )
+  // test(goA(""), )
 
-// test(goB(""), )
-// test(goB(""), )
+  // test(goB(""), )
+  // test(goB(""), )
 
-/* Results */
+  /* Results */
 
-const input = readInput()
+  const input = readInput()
 
-console.time("Time")
-const resultA = goA(input)
-const resultB = goB(input)
-console.timeEnd("Time")
+  console.time("Time")
+  const resultA = await goA(input)
+  const resultB = await goB(input)
+  console.timeEnd("Time")
 
-console.log("Solution to part 1:", resultA)
-console.log("Solution to part 2:", resultB)
+  console.log("Solution to part 1:", resultA)
+  console.log("Solution to part 2:", resultB)
+}
+
+main()
