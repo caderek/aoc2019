@@ -1,8 +1,8 @@
-# 🎄 Advent of Code 2019 - Day 23 🎄
+# 🎄 Advent of Code 2019 - Day 24 🎄
 
 ## Puzzle content
 
-https://adventofcode.com/2019/day/23
+https://adventofcode.com/2019/day/24
 
 ## Bonus image
 
