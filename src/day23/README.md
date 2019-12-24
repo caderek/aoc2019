@@ -1,4 +1,4 @@
-# Advent of Code 2019 - Day 23
+# 🎄 Advent of Code 2019 - Day 23 🎄
 
 ## Puzzle content
 
