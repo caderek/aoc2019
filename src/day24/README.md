@@ -28,3 +28,5 @@ Intcode program by [u/RudolphPlays](https://www.reddit.com/r/adventofcode/commen
                   ~RudolphPlays~
 
 ```
+
+Source: [click](https://github.com/caderek/aoc2019/blob/master/src/day24/image.ts)
