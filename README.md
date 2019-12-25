@@ -26,7 +26,7 @@
 [![Day](https://badgen.net/badge/22/%E2%98%85%E2%98%85/blue)](src/day22)
 [![Day](https://badgen.net/badge/23/%E2%98%85%E2%98%85/blue)](src/day23)
 [![Day](https://badgen.net/badge/24/%E2%98%85%E2%98%85/blue)](src/day24)
-[![Day](https://badgen.net/badge/25/%E2%98%86%E2%98%86/grey)](src/day25)
+[![Day](https://badgen.net/badge/25/%E2%98%85%E2%98%85/blue)](src/day25)
 
 ## Join my leaderboard
 
@@ -228,4 +228,9 @@ day24
 Time: 1101.197ms
 Solution to part 1: 23846449
 Solution to part 2: 1934
+
+day25
+------------------------------
+Time: 171.151ms
+Password: 33624080
 ```
