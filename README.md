@@ -1,6 +1,6 @@
 # 🎄 Advent of Code 2019 solutions (TypeScript) 🎄
 
-## Completed
+## Completed (all!)
 
 [![Day](https://badgen.net/badge/01/%E2%98%85%E2%98%85/blue)](src/day01)
 [![Day](https://badgen.net/badge/02/%E2%98%85%E2%98%85/blue)](src/day02)
