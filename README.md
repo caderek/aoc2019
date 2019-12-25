@@ -231,6 +231,6 @@ Solution to part 2: 1934
 
 day25
 ------------------------------
-Time: 171.151ms
+Time: 144.099ms
 Password: 33624080
 ```
