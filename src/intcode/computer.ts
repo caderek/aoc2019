@@ -93,19 +93,19 @@ const compute = async (
   let relativeBase = 0
 
   while (true) {
-    const first = String(getCell(pointer, program)).padStart(5, "0")
+    const first = getCell(pointer, program)
 
-    const opcode = Number(first.substr(3))
+    const opcode = first % 100
 
     if (opcode === Ops.HALT) {
       break
     }
 
-    const params = first
-      .substr(0, 3)
-      .split("")
-      .reverse()
-      .map(Number)
+    const params = [
+      ((first % 1000) / 100) >> 0,
+      ((first % 10000) / 1000) >> 0,
+      (first / 10000) >> 0,
+    ]
 
     let shouldJump = true
 
