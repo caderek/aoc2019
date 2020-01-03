@@ -1,6 +1,5 @@
 import { last_ } from "@arrows/array"
-import { permutations } from "iter-tools"
-import { test, readInput } from "../utils/index"
+import { test, readInput, gen } from "../utils/index"
 import compute from "./computer"
 
 const prepareInput = (rawInput: string) => rawInput
@@ -8,7 +7,7 @@ const prepareInput = (rawInput: string) => rawInput
 const input = prepareInput(readInput())
 
 const goA = async (source: string) => {
-  const phaseSequences = permutations([0, 1, 2, 3, 4])
+  const phaseSequences = gen.permutation([0, 1, 2, 3, 4])
   const thrusterSignals: number[] = []
 
   for (const [a, b, c, d, e] of phaseSequences) {
@@ -29,7 +28,7 @@ const goA = async (source: string) => {
 }
 
 const goB = async (source: string) => {
-  const phaseSequences = permutations([5, 6, 7, 8, 9])
+  const phaseSequences = gen.permutation([5, 6, 7, 8, 9])
   const thrusterSignals: number[] = []
 
   for (const [a, b, c, d, e] of phaseSequences) {

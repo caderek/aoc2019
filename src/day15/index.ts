@@ -1,6 +1,6 @@
 import { readInput, graph } from "../utils/index"
 import compute, { unblock } from "./computer"
-import { draw, drawPaths, Waypoint } from "./renderer"
+import { drawPaths, Waypoint } from "./renderer"
 
 enum Command {
   NORTH = 1,
@@ -148,7 +148,7 @@ const goA = async (source: string) => {
   ].distance
 
   /* Uncomment the next line to draw the paths */
-  // await drawPaths(g, targetTag, map)
+  await drawPaths(g, targetTag, map)
 
   return { distance, targetTag, g }
 }

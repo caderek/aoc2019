@@ -111,7 +111,7 @@ Solution to part 2: 520
 
 day07
 ------------------------------
-Time: 126.954ms
+Time: 63.106ms
 Solution to part 1: 255590
 Solution to part 2: 58285150
 
